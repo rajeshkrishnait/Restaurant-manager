@@ -28,7 +28,7 @@ export default (app: Router) => {
         const { user, token } = await authServiceInstance.SignUp(req.body as IUserInputDTO);
         return res.status(201).json({ user, token });
       } catch (e) {
-        logger.error('🔥 error: %o', e);
+        logger.error('error: %o', e);
         return next(e);
       }
     },
@@ -57,15 +57,6 @@ export default (app: Router) => {
     },
   );
 
-  /**
-   * @TODO Let's leave this as a place holder for now
-   * The reason for a logout route could be deleting a 'push notification token'
-   * so the device stops receiving push notifications after logout.
-   *
-   * Another use case for advance/enterprise apps, you can store a record of the jwt token
-   * emitted for the session and add it to a black list.
-   * It's really annoying to develop that but if you had to, please use Redis as your data store
-   */
   route.post('/logout', middlewares.isAuth, (req: Request, res: Response, next: NextFunction) => {
     const logger:Logger = Container.get('logger');
     logger.debug('Calling Sign-Out endpoint with body: %o', req.body);

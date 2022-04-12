@@ -9,6 +9,6 @@ export default () => {
 	auth(app);
 	user(app);
 	agendash(app);
-
+	
 	return app
 }

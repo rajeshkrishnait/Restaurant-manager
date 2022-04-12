@@ -20,11 +20,11 @@ export default ({ mongoConnection, models }: { mongoConnection; models: { name: 
     Container.set('emailClient', mgInstance.client({ key: config.emails.apiKey, username: config.emails.apiUsername }));
     Container.set('emailDomain', config.emails.domain);
 
-    LoggerInstance.info('✌️ Agenda injected into container');
+    LoggerInstance.info('Agenda injected into container');
 
     return { agenda: agendaInstance };
   } catch (e) {
-    LoggerInstance.error('🔥 Error on dependency injector loader: %o', e);
+    LoggerInstance.error('Error on dependency injector loader: %o', e);
     throw e;
   }
 };

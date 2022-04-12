@@ -5,7 +5,7 @@ import { Logger } from 'winston';
 import user from '../routes/user';
 
 
-const attachCurrentUser = async (req, res, next) => {
+const updateUserProfile = async (req, res, next) => {
   const Logger : Logger = Container.get('logger');
   try {
     const UserModel = Container.get('userModel') as mongoose.Model<IUser & mongoose.Document>;
@@ -13,15 +13,14 @@ const attachCurrentUser = async (req, res, next) => {
     if (!userRecord) {
       return res.sendStatus(401);
     }
-    const currentUser = userRecord.toObject();
-    Reflect.deleteProperty(currentUser, 'password');
-    Reflect.deleteProperty(currentUser, 'salt');
-    req.currentUser = currentUser;
+    userRecord.email = (!req.body.email)?userRecord.email:req.body.email
+    userRecord.name = (!req.body.name)?userRecord.name:req.body.name
+    await userRecord.save();
     return next();
   } catch (e) {
-    Logger.error('Error attaching user to req: %o', e);
+    Logger.error('Error updating user profile: %o', e);
     return next(e);
   }
 };
 
-export default attachCurrentUser;
+export default updateUserProfile;
