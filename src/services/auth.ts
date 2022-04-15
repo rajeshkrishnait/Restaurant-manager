@@ -5,6 +5,7 @@ import config from '@/config';
 import argon2 from 'argon2';
 import { randomBytes } from 'crypto';
 import { IUser, IUserInputDTO } from '@/interfaces/IUser';
+import { IRestaurantRole, IRestaurantRoleDTO } from '@/interfaces/IRestaurantRole';
 import { EventDispatcher, EventDispatcherInterface } from '@/decorators/eventDispatcher';
 import events from '@/subscribers/events';
 
@@ -12,20 +13,20 @@ import events from '@/subscribers/events';
 export default class AuthService {
   constructor(
     @Inject('userModel') private userModel: Models.UserModel,
+    @Inject('restaurantRoleModel') private restaurantRoleModel: Models.RestaurantRoleModel,
     private mailer: MailerService,
     @Inject('logger') private logger,
     @EventDispatcher() private eventDispatcher: EventDispatcherInterface,
   ) {
   }
 
-  public async SignUp(userInputDTO: IUserInputDTO): Promise<{ user: IUser; token: string }> {
+  public async SignUp(userInputDTO: IRestaurantRoleDTO): Promise<{ user: IRestaurantRole; token: string }> {
     try {
       const salt = randomBytes(32);
-
       this.logger.silly('Hashing password');
       const hashedPassword = await argon2.hash(userInputDTO.password, { salt });
       this.logger.silly('Creating user db record');
-      const userRecord = await this.userModel.create({
+      const userRecord = await this.restaurantRoleModel.create({
         ...userInputDTO,
         salt: salt.toString('hex'),
         password: hashedPassword,
@@ -51,8 +52,8 @@ export default class AuthService {
     }
   }
 
-  public async SignIn(email: string, password: string): Promise<{ user: IUser; token: string }> {
-    const userRecord = await this.userModel.findOne({ email });
+  public async SignIn(username: string, password: string): Promise<{ user: IRestaurantRole; token: string }> {
+    const userRecord = await this.restaurantRoleModel.findOne({ username });
     if (!userRecord) {
       throw new Error('User not registered');
     }

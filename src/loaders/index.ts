@@ -14,11 +14,15 @@ export default async ({ expressApp }) => {
     name: 'userModel',
     model: require('../models/user').default,
   };
-
+  const restaurantRoleModel = {
+    name: 'restaurantRoleModel',
+    model: require('../models/RestaurantRoles').default,
+  }
   const { agenda } = await dependencyInjectorLoader({
     mongoConnection,
     models: [
       userModel,
+      restaurantRoleModel,
     ],
   });
   Logger.info('Dependency Injector loaded');
