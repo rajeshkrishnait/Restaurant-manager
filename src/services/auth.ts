@@ -54,7 +54,6 @@ export default class AuthService {
     if (!userRecord) {
       throw new Error('User not registered');
     }
-    console.log(userRecord)
     this.logger.silly('Checking password');
     const validPassword = await argon2.verify(userRecord.password, password);
     if (validPassword) {
@@ -84,7 +83,10 @@ export default class AuthService {
         role: user.role,
         name: user.name,
       },
-      config.jwtSecret
+      {
+        expiresIn:'12h'
+      },
+      config.jwtSecret,
     );
   }
 }

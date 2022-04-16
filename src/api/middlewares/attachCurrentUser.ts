@@ -3,12 +3,13 @@ import mongoose from 'mongoose';
 import { IUser } from '@/interfaces/IUser';
 import { Logger } from 'winston';
 import user from '../routes/user';
+import { IRestaurantRole } from '@/interfaces/IRestaurantRole';
 
 
 const attachCurrentUser = async (req, res, next) => {
   const Logger : Logger = Container.get('logger');
   try {
-    const UserModel = Container.get('userModel') as mongoose.Model<IUser & mongoose.Document>;
+    const UserModel = Container.get('restaurantRoleModel') as mongoose.Model<IRestaurantRole & mongoose.Document>;
     const userRecord = await UserModel.findById(req.token._id);
     if (!userRecord) {
       return res.sendStatus(401);

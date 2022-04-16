@@ -124,3 +124,46 @@ response{
         }
     ]
 }
+
+/users/me - fetches current user details
+GET method
+needs access token in header
+request{
+
+}
+response{
+    "user": {
+        "role": "Admin",
+        "_id": "625a80b1b851d949d4d16835",
+        "email": "restaurantmanagercorp@gmail.com",
+        "username": "RestaurantManagerCorp",
+        "phone": 7904601211,
+        "status": "active",
+        "restaurant": "Nalla sappadu",
+        "createdAt": "2022-04-16T08:39:13.177Z",
+        "updatedAt": "2022-04-16T08:39:13.177Z",
+        "__v": 0
+    }
+}
+
+/admin/get_managers - fetches all managers. accessible only to admins
+GET method
+needs access token in header
+request{
+
+}
+response{
+
+}
+
+/admin/refresh_qr - refreshes restaurant qr. accessible only to admins
+PUT method
+needs access token in header
+request{
+
+}
+response{
+
+}
+
+/admin
