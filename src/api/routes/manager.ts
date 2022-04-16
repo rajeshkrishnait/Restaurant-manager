@@ -38,7 +38,7 @@ export default (app: Router) => {
         const isValidRole = await middlewares.checkRole(req, "Manager", next)
         if(isValidRole){
             const ManagerServiceInstance = Container.get(ManagerService);
-            const { foodDetails } = await ManagerServiceInstance.getFood();
+            const { foodDetails } = req.query.inMenu?await ManagerServiceInstance.getMenuFood():await ManagerServiceInstance.getFood();
             return res.status(201).json({ "status":foodDetails});
         }else{
             return res.json({message:"Not Authorized"});

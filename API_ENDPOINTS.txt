@@ -215,7 +215,7 @@ response{
     "status":true
 }
 
-/manager/get_food - fetches all food. accessible only to manager
+/manager/get_food - fetches all food. accessible only to manager. use ?inMenu=true as query parameter in url, http://localhost:3000/api/manager/get_food?inMenu=true, for retrieving menu food
 GET method
 needs access token in header
 request{
