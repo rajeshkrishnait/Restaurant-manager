@@ -63,7 +63,7 @@ export default (app: Router) => {
         return res.cookie("access_token", token, {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
-        }).status(200).json({"Message":"successful login"});
+        }).status(200).json({"status":true});
       } catch (e) {
         logger.error('error: %o',  e );
         return next(e);

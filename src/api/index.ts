@@ -3,6 +3,8 @@ import auth from './routes/auth';
 import user from './routes/user';
 import agendash from './routes/agendash';
 import dineTable from './routes/dineTable';
+import admin from './routes/admin';
+import manager from './routes/manager';
 
 import customerOtp from './routes/customerOtp';
 // guaranteed to get dependencies
@@ -12,6 +14,8 @@ export default () => {
 	user(app);
 	agendash(app);
 	dineTable(app);
-	// customerOtp(app);
+	customerOtp(app);
+	admin(app)
+	manager(app)
 	return app
 }

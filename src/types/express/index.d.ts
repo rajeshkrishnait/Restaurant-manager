@@ -3,6 +3,8 @@ import { IUser } from '@/interfaces/IUser';
 import { IOtp } from '@/interfaces/IOtp';
 import { IDine } from '@/interfaces/IDine';
 import {IRestaurantRole} from '@/interfaces/IRestaurantRole';
+import {IFood} from '@/interfaces/IFood';
+
 declare global {
   namespace Express {
     export interface Request {
@@ -15,5 +17,7 @@ declare global {
     export type RestaurantRoleModel = Model<IRestaurantRole & Document>;
     export type OtpModel = Model<IOtp & Document>;
     export type DineTableModel = Model<IDine & Document>;
+    export type FoodModel = Model<IFood & Document>;
+
   }
 }

@@ -153,7 +153,43 @@ request{
 
 }
 response{
+    "managerDetails": [
+        {
+            "role": "Manager",
+            "_id": "625a6fc3ffd3a44a90aa3536",
+            "email": "rajeshkrishnarajakumar@gmail.com",
+            "username": "raj",
+            "phone": 7904601211,
+            "status": "active",
+            "restaurant": "sappadu",
+            "createdAt": "2022-04-16T07:26:59.708Z",
+            "updatedAt": "2022-04-16T07:26:59.708Z",
+            "__v": 0
+        },
+        {
+            "role": "Manager",
+            "_id": "625a723a14d61b25e861cc8f",
+            "email": "lokeshvar@gmail.com",
+            "username": "lok",
+            "phone": 7904601211,
+            "status": "active",
+            "restaurant": "sappadu",
+            "createdAt": "2022-04-16T07:37:30.580Z",
+            "updatedAt": "2022-04-16T07:37:30.580Z",
+            "__v": 0
+        }
+    ]
+}
 
+/admin/delete_manager - deletes manager with specified _id. accessible only to admin
+DELETE method
+needs access token in header
+
+request{
+    "_id" : ""
+}
+response{
+    status:true
 }
 
 /admin/refresh_qr - refreshes restaurant qr. accessible only to admins
@@ -166,4 +202,81 @@ response{
 
 }
 
-/admin
+/manager/create_food - creates food based on the details in the body. accessible only to manager
+POST method
+needs access token in header
+
+request{
+    "name":"idli",
+    "price":100,
+    "category":"dinner"
+}
+response{
+    "status":true
+}
+
+/manager/get_food - fetches all food. accessible only to manager
+GET method
+needs access token in header
+request{
+
+}
+response{
+    "status": [
+        {
+            "inMenu": false,
+            "restaurant": "Namma Sappadu",
+            "_id": "625b03f057132902e450444e",
+            "name": "dosa",
+            "price": 12,
+            "category": "dinner",
+            "createdAt": "2022-04-16T17:59:12.849Z",
+            "updatedAt": "2022-04-16T17:59:12.849Z",
+            "__v": 0
+        },
+        {
+            "inMenu": false,
+            "restaurant": "Namma Sappadu",
+            "_id": "625b042657132902e4504455",
+            "name": "idli",
+            "price": 100,
+            "category": "dinner",
+            "createdAt": "2022-04-16T18:00:06.903Z",
+            "updatedAt": "2022-04-16T18:00:06.903Z",
+            "__v": 0
+        }
+    ]
+}
+
+/manager/update_food - updates food based on id. accessible only to manager [for menu change, put inMenu:"true"||"false" in the body]
+PUT method
+needs access token in header
+request{
+    "_id":"625b03f057132902e450444e",
+    "inMenu":true,
+    "name":"dosaa"
+}
+response{
+    "foodDetail": {
+        "inMenu": true,
+        "restaurant": "Namma Sappadu",
+        "_id": "625b03f057132902e450444e",
+        "name": "dosaa",
+        "price": 12,
+        "category": "dinner",
+        "createdAt": "2022-04-16T17:59:12.849Z",
+        "updatedAt": "2022-04-16T18:17:04.860Z",
+        "__v": 0
+    }
+}
+/manager/delete_food - deletes food based on id. accessible only to manager
+DELETE method
+needs access token in header
+request{
+    "_id":"625b03f057132902e450444e"
+}
+response{
+    "status": true
+}
+
+
