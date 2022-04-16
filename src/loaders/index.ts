@@ -18,11 +18,21 @@ export default async ({ expressApp }) => {
     name: 'restaurantRoleModel',
     model: require('../models/RestaurantRoles').default,
   }
+  const otpModel = {
+    name:'otpModel',
+    model:require('../models/Otp').default
+  }
+  const dineTableModel = {
+    name:'dineTableModel',
+    model:require('../models/dineTable').default
+  }
   const { agenda } = await dependencyInjectorLoader({
     mongoConnection,
     models: [
       userModel,
       restaurantRoleModel,
+      otpModel,
+      dineTableModel
     ],
   });
   Logger.info('Dependency Injector loaded');

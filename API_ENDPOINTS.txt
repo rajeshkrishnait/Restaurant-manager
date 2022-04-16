@@ -1,7 +1,35 @@
 API ENDPOINTs:
-/users/me - gives current user details
-/users/update_profile - updates current user details
-/auth/sigin - sign in user
+
+/auth/create_managers - creates managers, only accessible to admins
+needs JWT Token in header
+POST method
+request:{
+    "email":"rajeshkrishnarajakumar@gmail.com",
+    "password":"passwordchecker",
+    "username":"raj",
+    "phone":"7904601211",
+    "role":"Manager",
+    "status":"active",
+    "restaurant":"sappadu"
+}
+response:
+{
+    "user": {
+        "role": "Manager",
+        "_id": "625911221f562b2e4c3a9d07",
+        "email": "rajeshkrishnarajakumar@gmail.com",
+        "phone": 7904601211,
+        "status": "active",
+        "restaurant": "sappadu",
+        "createdAt": "2022-04-15T06:30:58.093Z",
+        "updatedAt": "2022-04-15T06:30:58.093Z",
+        "__v": 0
+    }
+}
+
+
+/auth/sigin - sign in Managers and Admins
+POST method
 request:{
     "password":"passwordchecker",
     "username":"lok"
@@ -10,7 +38,7 @@ response:
 {
     {
     "user": {
-        "role": "Admin",
+        "role": "Manager",
         "_id": "6259143f1aa6a82c246d3b73",
         "email": "lokeshwar@gmail.com",
         "name": "lokeshwar lokesh",
@@ -25,30 +53,74 @@ response:
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjU5MTQzZjFhYTZhODJjMjQ2ZDNiNzMiLCJyb2xlIjoiQWRtaW4iLCJuYW1lIjoibG9rZXNod2FyIGxva2VzaCIsImlhdCI6MTY1MDAwNTE0Mn0.FvVNyUVMbj9mfSa8aLh8oRAgUSy6Mjog71lkh5hXWiw"
 }
 }
-/auth/signup - creates new user profile
-request:{
-    "email":"rajeshkrishnarajakumar@gmail.com",
-    "password":"passwordchecker",
-    "username":"raj",
-    "phone":"7904601211",
-    "role":"Admin",
-    "status":"active",
-    "restaurant":"sappadu"
+
+/table/create_tables - creates table based on name. accessible only to admins
+needs JWT Token in header
+POST method
+request{
+        "name":"first table"
+}
+response{
+    "tableDetails": {
+        "restaurant": "Namma Sappadu",
+        "status": true,
+        "_id": "625a81910524774e5c7e81b8",
+        "name": "first table",
+        "qrCode": "9c6ed88f73a9c86af22883b003298cce7fb5b29af6b6ae71b68cd8947e36e37d",
+        "createdAt": "2022-04-16T08:42:57.940Z",
+        "updatedAt": "2022-04-16T08:42:57.940Z",
+        "__v": 0
+}
+}
+
+/table/refresh_qr - updates table Qr based on _id. accessible only to admins.
+needs JWT token in header
+PUT method
+request{
+    _id:"625a81910524774e5c7e81b8"
+}
+response{
+    "tableDetails": {
+        "restaurant": "Namma Sappadu",
+        "status": true,
+        "_id": "625a81910524774e5c7e81b8",
+        "name": "first table",
+        "qrCode": "958ec7f66da6d8e08b0f8301797842a10c6e5519c22c840c5e4ad291926aa624",
+        "createdAt": "2022-04-16T08:42:57.940Z",
+        "updatedAt": "2022-04-16T09:13:44.513Z",
+        "__v": 0
+    }
+}
+
+
+/table/get_tables - get details of all tables. Accessible only to Admins
+need JWT token in header
+GET method
+
+request{
 
 }
-response:
-{
-    "user": {
-        "role": "Admin",
-        "_id": "625911221f562b2e4c3a9d07",
-        "email": "rajeshkrishnarajakumar@gmail.com",
-        "phone": 7904601211,
-        "status": "active",
-        "restaurant": "sappadu",
-        "createdAt": "2022-04-15T06:30:58.093Z",
-        "updatedAt": "2022-04-15T06:30:58.093Z",
-        "__v": 0
-    },
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjU5MTEyMjFmNTYyYjJlNGMzYTlkMDciLCJyb2xlIjoiQWRtaW4iLCJuYW1lIjoicmFqZXNoIGtyaXNobmEgUiIsImlhdCI6MTY1MDAwNDI1OH0.kPtQ5twzfJhkIP4sZCe3-G5YZzdZVcI7NligJzfhY7M"
+response{
+    "tableDetails": [
+        {
+            "restaurant": "Namma Sappadu",
+            "status": true,
+            "_id": "625a81910524774e5c7e81b8",
+            "name": "first table",
+            "qrCode": "958ec7f66da6d8e08b0f8301797842a10c6e5519c22c840c5e4ad291926aa624",
+            "createdAt": "2022-04-16T08:42:57.940Z",
+            "updatedAt": "2022-04-16T09:13:44.513Z",
+            "__v": 0
+        },
+        {
+            "restaurant": "Namma Sappadu",
+            "status": true,
+            "_id": "625a8a3f0917215290784cbd",
+            "name": "second table",
+            "qrCode": "b8772ee4cca2f99c748007509b69994803c616ee96a2bd8d849f13ec74c8e193",
+            "createdAt": "2022-04-16T09:19:59.496Z",
+            "updatedAt": "2022-04-16T09:19:59.496Z",
+            "__v": 0
+        }
+    ]
 }
-/auth/logout - logs out user

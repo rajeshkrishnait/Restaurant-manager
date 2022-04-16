@@ -35,7 +35,6 @@ export default ({ app }: { app: express.Application }) => {
   });
 
   app.use((err, req, res, next) => {
-    
     if (err.name === 'UnauthorizedError') {
       return res
         .status(err.status)

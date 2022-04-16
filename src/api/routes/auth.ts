@@ -6,6 +6,7 @@ import { IRestaurantRoleDTO } from '@/interfaces/IRestaurantRole';
 import middlewares from '../middlewares';
 import { celebrate, Joi } from 'celebrate';
 import { Logger } from 'winston';
+import { eq } from 'lodash';
 
 const route = Router();
 
@@ -13,7 +14,7 @@ export default (app: Router) => {
   app.use('/auth', route);
 
   route.post(
-    '/signup',
+    '/create_managers',
     celebrate({
       body: Joi.object({
         username: Joi.string().required(),
@@ -24,14 +25,19 @@ export default (app: Router) => {
         status:Joi.string().required(),
         restaurant: Joi.string().required(),
       }),
-    }),
+    }), middlewares.isAuth,
     async (req: Request, res: Response, next: NextFunction) => {
       const logger:Logger = Container.get('logger');
-      logger.debug('Calling Sign-Up endpoint for Restaurant Roles with body: %o', req.body );
+      logger.debug('Calling Create Managers endpoint for from admin with body: %o', req.body );
       try {
-        const authServiceInstance = Container.get(AuthService);
-        const { user, token } = await authServiceInstance.SignUp(req.body as IRestaurantRoleDTO);
-        return res.status(201).json({ user, token });
+        const isValidRole = await middlewares.checkRole(req, "Admin", next)
+        if(isValidRole){
+          const otpServiceInstance = Container.get(AuthService);
+          const { user } = await otpServiceInstance.SignUp(req.body as IRestaurantRoleDTO);
+          return res.status(201).json({ user });
+        }else{
+          return res.json("Not Authorized")
+        }
       } catch (e) {
         logger.error('error: %o', e);
         return next(e);

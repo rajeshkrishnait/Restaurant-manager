@@ -20,7 +20,7 @@ export default class AuthService {
   ) {
   }
 
-  public async SignUp(userInputDTO: IRestaurantRoleDTO): Promise<{ user: IRestaurantRole; token: string }> {
+  public async SignUp(userInputDTO: IRestaurantRoleDTO): Promise<{ user: IRestaurantRole}> {
     try {
       const salt = randomBytes(32);
       this.logger.silly('Hashing password');
@@ -31,21 +31,18 @@ export default class AuthService {
         salt: salt.toString('hex'),
         password: hashedPassword,
       });
-      this.logger.silly('Generating JWT');
-      const token = this.generateToken(userRecord);
-
       if (!userRecord) {
         throw new Error('User cannot be created');
       }
-      this.logger.silly('Sending welcome email');
-      await this.mailer.SendWelcomeEmail(userRecord);
+      // this.logger.silly('Sending welcome email');
+      // await this.mailer.SendWelcomeEmail(userRecord);
 
-      this.eventDispatcher.dispatch(events.user.signUp, { user: userRecord });
+      // this.eventDispatcher.dispatch(events.user.signUp, { user: userRecord });
 
       const user = userRecord.toObject();
       Reflect.deleteProperty(user, 'password');
       Reflect.deleteProperty(user, 'salt');
-      return { user, token };
+      return { user };
     } catch (e) {
       this.logger.error(e);
       throw e;
@@ -57,7 +54,7 @@ export default class AuthService {
     if (!userRecord) {
       throw new Error('User not registered');
     }
-    
+    console.log(userRecord)
     this.logger.silly('Checking password');
     const validPassword = await argon2.verify(userRecord.password, password);
     if (validPassword) {
