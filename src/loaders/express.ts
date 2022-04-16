@@ -3,6 +3,8 @@ import cors from 'cors';
 import { OpticMiddleware } from '@useoptic/express-middleware';
 import routes from '@/api';
 import config from '@/config';
+const cookieParser = require("cookie-parser");
+
 export default ({ app }: { app: express.Application }) => {
   
   app.get('/status', (req, res) => {
@@ -17,7 +19,7 @@ export default ({ app }: { app: express.Application }) => {
 
   
   app.use(cors());
-
+  app.use(cookieParser())
   
   app.use(require('method-override')());
 
