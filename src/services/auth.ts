@@ -49,7 +49,7 @@ export default class AuthService {
     }
   }
 
-  public async SignIn(username: string, password: string): Promise<{ user: IRestaurantRole; token: string }> {
+  public async SignIn(username: string, password: string): Promise<{token: string }> {
     const userRecord = await this.restaurantRoleModel.findOne({ username });
     if (!userRecord) {
       throw new Error('User not registered');
@@ -65,7 +65,7 @@ export default class AuthService {
       Reflect.deleteProperty(user, 'password');
       Reflect.deleteProperty(user, 'salt');
 
-      return { user, token };
+      return { token };
     } else {
       throw new Error('Invalid Password');
     }
@@ -83,10 +83,10 @@ export default class AuthService {
         role: user.role,
         name: user.name,
       },
+      config.jwtSecret,
       {
         expiresIn:'12h'
       },
-      config.jwtSecret,
     );
   }
 }

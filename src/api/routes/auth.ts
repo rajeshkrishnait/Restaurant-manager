@@ -59,11 +59,11 @@ export default (app: Router) => {
       try {
         const { username, password } = req.body;
         const authServiceInstance = Container.get(AuthService);
-        const { user, token } = await authServiceInstance.SignIn(username, password);
+        const { token } = await authServiceInstance.SignIn(username, password);
         return res.cookie("access_token", token, {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
-        }).json({ user }).status(200);
+        }).status(200).json({"Message":"successful login"});
       } catch (e) {
         logger.error('error: %o',  e );
         return next(e);
