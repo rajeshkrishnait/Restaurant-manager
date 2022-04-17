@@ -3,10 +3,6 @@ import mongoose from 'mongoose';
 
 const dineTable = new mongoose.Schema(
   {
-    restaurant:{
-        type: String,
-        default:"Namma Sappadu",
-    },
     name: {
       type: String,
     },

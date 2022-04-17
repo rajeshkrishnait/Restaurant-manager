@@ -16,19 +16,12 @@ const RestaurantRole = new mongoose.Schema(
       index: true,
     },
     status: {
-        type: String,
-        lowercase: true,
-        unique: false,
-        index: true,
+        type: Boolean,
+        default:true
       },
       phone: {
         type: Number,
         required: [true, 'Please enter a phone number'],
-      },
-      restaurant: {
-        type: String,
-        required: [true, 'Please enter a Restaurant name'],
-        index: true,
       },
     password: String,
 

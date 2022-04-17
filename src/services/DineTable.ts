@@ -18,11 +18,11 @@ export default class DineTableService {
 
   public async createTable(tableInputDTO: IDineDTO): Promise<{ tableDetails: IDine}> {
     try {
-      const qr = randomBytes(32);
+      const qr = uuidv4();
       this.logger.silly('creating qr');
       const tableRecord = await this.dineTableModel.create({
         ...tableInputDTO,
-        qrCode:qr.toString('hex')
+        qrCode:qr
       });
       if (!tableRecord) {
         throw new Error('dining table cannot be created');

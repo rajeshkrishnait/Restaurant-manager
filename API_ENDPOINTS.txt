@@ -254,7 +254,7 @@ response{
     ]
 }
 
-/manager/update_food - updates food based on id. accessible only to manager [for menu change, put inMenu:"true"||"false" in the body]
+/manager/update_food - updates food based on id. accessible only to manager [for menu change, put inMenu:"true"||"false" in the query]
 PUT method
 needs access token in header
 request{
@@ -285,6 +285,8 @@ response{
     "status": true
 }
 
+
+//ignore error shown in services/OTP.ts, that is due to typescript. will fix it in sometime
 /otp/email_route - sends otp via email. 
 POST method
 request{

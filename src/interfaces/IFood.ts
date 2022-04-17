@@ -1,17 +1,16 @@
 export interface IFood{
     _id:String;
-    restaurant:String;
     name:String;
     price:Number;
     category:String;
     inMenu:Boolean;
+    image:String;
 }
 
 export interface IFoodDTO{
-    restaurant:String;
     name:String;
     price:Number;
     category:String;
     inMenu:Boolean;
-
+    image:String;
 }

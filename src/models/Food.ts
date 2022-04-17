@@ -22,10 +22,7 @@ const Food = new mongoose.Schema(
         type: Boolean,
         default:false,
       },
-      restaurant:{
-        type:String,
-        default:'Namma Sappadu'
-      },
+      image:String,
   },
   { timestamps: true },
 );

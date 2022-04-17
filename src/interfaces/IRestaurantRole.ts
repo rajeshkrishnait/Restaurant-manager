@@ -15,7 +15,6 @@ export interface IRestaurantRole {
     email: string;
     phone: number;
     role: string;
-    restaurant: string;
     status: string;
   }
   
