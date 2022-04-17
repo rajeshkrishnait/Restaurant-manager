@@ -11,3 +11,8 @@ export interface IOtpDTO{
       message:"OTP sent to user",
       otp_id: String
 }
+export interface IOtpInput{
+    verificationKey:String;
+    otp:String;
+    check:String;
+}

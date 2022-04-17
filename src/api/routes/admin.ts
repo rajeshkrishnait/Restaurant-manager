@@ -48,24 +48,24 @@ export default (app: Router) => {
         return next(e);
         }
     });
-    // route.put('/refresh_qr',
-    // middlewares.isAuth,
-    // async(req:Request, res:Response, next:NextFunction) =>{
-    // const logger:Logger = Container.get('logger');
-    // logger.debug('Calling Update qr endpoint by admin with body: %o', req.body );
-    // try {
-    //     const isValidRole = await middlewares.checkRole(req, "Admin", next)
-    //     if(isValidRole){
-    //         const DineTableServiceInstance = Container.get(DineTableService);
-    //         const { tableDetails } = await DineTableServiceInstance.refreshQR(req.body._id);
-    //         return res.status(201).json({ tableDetails });
-    //     }else{
-    //         return res.json({message:"Not Authorized"});
-    //     }
-    //     } catch (e) {
-    //     logger.error('error: %o', e);
-    //     return next(e);
-    //     }
-    // });
+    route.put('/refresh_qr',
+    middlewares.isAuth,
+    async(req:Request, res:Response, next:NextFunction) =>{
+    const logger:Logger = Container.get('logger');
+    logger.debug('Calling Update restaurant qr endpoint by admin with body: %o', req.body );
+    try {
+        const isValidRole = await middlewares.checkRole(req, "Admin", next)
+        if(isValidRole){
+            const AdminServiceInstance = Container.get(AdminService);
+            const { restaurantDetails } = await AdminServiceInstance.refreshQR();
+            return res.status(201).json({ restaurantDetails });
+        }else{
+            return res.json({message:"Not Authorized"});
+        }
+        } catch (e) {
+        logger.error('error: %o', e);
+        return next(e);
+        }
+    });
 
 }

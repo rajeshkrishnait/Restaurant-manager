@@ -5,6 +5,7 @@ import { randomBytes } from 'crypto';
 import { IDine, IDineDTO } from '@/interfaces/IDine';
 import { EventDispatcher, EventDispatcherInterface } from '@/decorators/eventDispatcher';
 import events from '@/subscribers/events';
+import { v4 as uuidv4 } from 'uuid';
 
 @Service()
 export default class DineTableService {
@@ -35,15 +36,14 @@ export default class DineTableService {
   }
   public async refreshQR(tableID: String): Promise<{ tableDetails: IDine}> {
     try {
-      const qr = randomBytes(32);
+      const qr = uuidv4();
       this.logger.silly('creating qr');
-      console.log(tableID)
       const tableRecord = await this.dineTableModel.findById( tableID );
 
       if (!tableRecord) {
         throw new Error('dining table not found');
       }
-      tableRecord.qrCode = qr.toString('hex')
+      tableRecord.qrCode = qr
       await tableRecord.save()
       return { tableDetails:tableRecord };
     } catch (e) {

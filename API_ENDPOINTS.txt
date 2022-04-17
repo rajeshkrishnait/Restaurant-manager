@@ -199,7 +199,12 @@ request{
 
 }
 response{
-
+    "restaurantDetails": {
+        "_id": "625bab55dfa9f8cc1a0d23c5",
+        "name": "Namma Sappadu",
+        "qr": "b4a19dc0-5bd6-4837-a7c7-067c9627aa4e",
+        "updatedAt": "2022-04-17T06:13:39.027Z"
+    }
 }
 
 /manager/create_food - creates food based on the details in the body. accessible only to manager
@@ -210,6 +215,7 @@ request{
     "name":"idli",
     "price":100,
     "category":"dinner"
+    "image":"firebase_url"
 }
 response{
     "status":true
@@ -279,4 +285,25 @@ response{
     "status": true
 }
 
+/otp/email_route - sends otp via email. 
+POST method
+request{
+    "email":"krishnarajesh1998@gmail.com"
+}
+response{
+    "verficationKey":"TXhk2gKKRbN6LW1qiEheCOcxAp3YQNzff5qb/NOxXP9YHhnRK71tJXzVk8z94+UkFkNx7Wc2IOg5rv0ouHQKmGwVNiQMDnyawD91BKThHaJpPKuKzNG1gAi53/Yt4gU5+B8ycMbKf7Jgre1CuyRlJ0INq+mCRZgEqrKat/93mpJXOznEqZS6umWBvvUWAthol62TK/1P5ubunqkbh3emDA==",
+    "otp":"0Z7juo",
+    "email":"krishnarajesh1998@gmail.com"
+}
 
+/otp/verify_otp - verifies otp
+POST method
+request{
+    "verificationKey":"r0ssXoXslhOqXfpmeHoXio6O+Y5RFAScn+yWu8ukTWrazqsPiwsZ6kwPqcUbgz/s0zRE71j3duWVBjmslWXRR1AfBkrCWMTJCMkMLKCNfTc0MP/jeVU8h0lMJPcZAw/jF0ENRynHJQ9v80Ffc2wE/CwXcflQk7bvHgGjwpaSiVdOfJIXUjoAPD+k55i2bYIjDA7i3Z7rPypn2QrCEIsm7w==",
+    "otp":"zRbZ1LZ",
+    "check":"krishnarajesh1998@gmail.com"
+}
+response{
+    "status":true,
+    "access_token":""
+}

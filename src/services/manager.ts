@@ -37,6 +37,7 @@ export default class ManagerService {
         foodRecord.price = foodInput.price?foodInput.price:foodRecord.price
         foodRecord.category = foodInput.category?foodInput.category:foodRecord.category
         foodRecord.inMenu = foodInput.inMenu?foodInput.inMenu:foodRecord.inMenu
+        foodRecord.image = foodInput.image?foodInput.image:foodRecord.image
         console.log(foodRecord)
         await foodRecord.save()
         return {foodDetail:foodRecord}

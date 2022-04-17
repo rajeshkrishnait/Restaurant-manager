@@ -1,6 +1,8 @@
 import { Service, Inject } from 'typedi';
 import { randomBytes } from 'crypto';
 import { IRestaurantRole, IRestaurantRoleDTO } from '@/interfaces/IRestaurantRole';
+import { IRestaurant} from '@/interfaces/IRestaurant';
+import { v4 as uuidv4 } from 'uuid';
 import { EventDispatcher, EventDispatcherInterface } from '@/decorators/eventDispatcher';
 import events from '@/subscribers/events';
 
@@ -8,6 +10,7 @@ import events from '@/subscribers/events';
 export default class AdminService {
   constructor(
     @Inject('restaurantRoleModel') private restaurantRoleModel: Models.RestaurantRoleModel,
+    @Inject('restaurantModel') private restaurantModel: Models.RestaurantModel,
     @Inject('logger') private logger,
     @EventDispatcher() private eventDispatcher: EventDispatcherInterface,
   ) {
@@ -37,23 +40,22 @@ export default class AdminService {
       throw e;
     }
   }
-//   public async refreshQR(tableID: String): Promise<{ tableDetails: IDine}> {
-//     try {
-//       const qr = randomBytes(32);
-//       this.logger.silly('creating qr');
-//       console.log(tableID)
-//       const tableRecord = await this.dineTableModel.findById( tableID );
+  public async refreshQR(): Promise<{ restaurantDetails: IRestaurant}> {
+    try {
+      const qr = uuidv4();
+      this.logger.silly('creating qr');
+      const restaurantRecord = await this.restaurantModel.findById( "625bab55dfa9f8cc1a0d23c5");
 
-//       if (!tableRecord) {
-//         throw new Error('dining table not found');
-//       }
-//       tableRecord.qrCode = qr.toString('hex')
-//       await tableRecord.save()
-//       return { tableDetails:tableRecord };
-//     } catch (e) {
-//       this.logger.error(e);
-//       throw e;
-//     }
-//   }
+      if (!restaurantRecord) {
+        throw new Error('Restaurant record not found');
+      }
+      restaurantRecord.qr = qr
+      await restaurantRecord.save()
+      return { restaurantDetails:restaurantRecord };
+    } catch (e) {
+      this.logger.error(e);
+      throw e;
+    }
+  }
   
 }

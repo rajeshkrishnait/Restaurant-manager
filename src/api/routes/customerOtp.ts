@@ -27,18 +27,14 @@ export default (app:Router) =>{
         return next(e);
       }
     });
-    route.post('/verify_otp', 
-    celebrate({
-        body:Joi.object({
-            email: Joi.string().required(),
-        }), 
-    }), async (req:Request, res:Response, next:NextFunction) =>{
+    route.post('/verify_otp'
+    , async (req:Request, res:Response, next:NextFunction) =>{
         const logger:Logger = Container.get('logger');
       logger.debug('Calling Otp endpoint for Sending Otp through email with body: %o', req.body );
       try {
         const otpServiceInstance = Container.get(OtpService);
-        const { status, token } = await otpServiceInstance.verify(req.body);
-        return res.status(201).json({ status});
+        const { status,token } = await otpServiceInstance.verifyOtp(req.body);
+        return res.status(201).json({ status, "access_token": token});
       } catch (e) {
         logger.error('error: %o', e);
         return next(e);

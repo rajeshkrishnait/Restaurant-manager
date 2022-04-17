@@ -4,8 +4,10 @@ const crypto = require('crypto');
 var password = process.env['CRYPT_PASSWORD'];
 
 // We then get our unique Initialization Vector
-var ivstring  = crypto.randomBytes(16);;
+var iv =  Buffer.from(process.env['IV']);
 
+// To be used as salt in encryption and decryption
+var ivstring = iv.toString('hex');
 // To be used as salt in encryption and decryption
 // var ivstring = iv.toString('hex');
 
@@ -42,10 +44,13 @@ async function encode(string) {
 
 // Function to decode the object
 async function decode(string) {
+
     var key = password_derive_bytes(password, '', 100, 32);
     // Initialize decipher Object to decrypt using AES-256 Algorithm
     var decipher = crypto.createDecipheriv('aes-256-cbc', key, ivstring);
+
     var decrypted = decipher.update(string, 'base64', 'utf8');
+    
     decrypted += decipher.final();
     return decrypted;
 }
