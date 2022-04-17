@@ -10,7 +10,6 @@ request:{
     "phone":"7904601211",
     "role":"Manager",
     "status":"active",
-    "restaurant":"sappadu"
 }
 response:
 {
@@ -20,7 +19,6 @@ response:
         "email": "rajeshkrishnarajakumar@gmail.com",
         "phone": 7904601211,
         "status": "active",
-        "restaurant": "sappadu",
         "createdAt": "2022-04-15T06:30:58.093Z",
         "updatedAt": "2022-04-15T06:30:58.093Z",
         "__v": 0
@@ -45,7 +43,6 @@ response:
         "username": "lok",
         "phone": 9560121221,
         "status": "inactive",
-        "restaurant": "sappadu",
         "createdAt": "2022-04-15T06:44:15.256Z",
         "updatedAt": "2022-04-15T06:44:15.256Z",
         "__v": 0
@@ -54,7 +51,7 @@ response:
 }
 }
 
-/table/create_tables - creates table based on name. accessible only to admins
+/table/create_table - creates table based on name. accessible only to admins
 needs JWT Token in header
 POST method
 request{
@@ -62,7 +59,6 @@ request{
 }
 response{
     "tableDetails": {
-        "restaurant": "Namma Sappadu",
         "status": true,
         "_id": "625a81910524774e5c7e81b8",
         "name": "first table",
@@ -81,7 +77,6 @@ request{
 }
 response{
     "tableDetails": {
-        "restaurant": "Namma Sappadu",
         "status": true,
         "_id": "625a81910524774e5c7e81b8",
         "name": "first table",
@@ -103,7 +98,6 @@ request{
 response{
     "tableDetails": [
         {
-            "restaurant": "Namma Sappadu",
             "status": true,
             "_id": "625a81910524774e5c7e81b8",
             "name": "first table",
@@ -113,7 +107,6 @@ response{
             "__v": 0
         },
         {
-            "restaurant": "Namma Sappadu",
             "status": true,
             "_id": "625a8a3f0917215290784cbd",
             "name": "second table",
@@ -139,7 +132,6 @@ response{
         "username": "RestaurantManagerCorp",
         "phone": 7904601211,
         "status": "active",
-        "restaurant": "Nalla sappadu",
         "createdAt": "2022-04-16T08:39:13.177Z",
         "updatedAt": "2022-04-16T08:39:13.177Z",
         "__v": 0
@@ -161,7 +153,6 @@ response{
             "username": "raj",
             "phone": 7904601211,
             "status": "active",
-            "restaurant": "sappadu",
             "createdAt": "2022-04-16T07:26:59.708Z",
             "updatedAt": "2022-04-16T07:26:59.708Z",
             "__v": 0
@@ -173,7 +164,6 @@ response{
             "username": "lok",
             "phone": 7904601211,
             "status": "active",
-            "restaurant": "sappadu",
             "createdAt": "2022-04-16T07:37:30.580Z",
             "updatedAt": "2022-04-16T07:37:30.580Z",
             "__v": 0
@@ -231,7 +221,6 @@ response{
     "status": [
         {
             "inMenu": false,
-            "restaurant": "Namma Sappadu",
             "_id": "625b03f057132902e450444e",
             "name": "dosa",
             "price": 12,
@@ -242,7 +231,6 @@ response{
         },
         {
             "inMenu": false,
-            "restaurant": "Namma Sappadu",
             "_id": "625b042657132902e4504455",
             "name": "idli",
             "price": 100,
@@ -265,7 +253,6 @@ request{
 response{
     "foodDetail": {
         "inMenu": true,
-        "restaurant": "Namma Sappadu",
         "_id": "625b03f057132902e450444e",
         "name": "dosaa",
         "price": 12,
