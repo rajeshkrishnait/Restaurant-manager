@@ -63,7 +63,7 @@ export default (app: Router) => {
         return res.cookie("access_token", token, {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
-        }).status(200).json({"status":true});
+        }).status(200).json({"status":true, "access_token": token});
       } catch (e) {
         logger.error('error: %o',  e );
         return next(e);
@@ -75,7 +75,7 @@ export default (app: Router) => {
     const logger:Logger = Container.get('logger');
     logger.debug('Calling Sign-Out endpoint with body: %o', req.body);
     try {
-      return res.status(200).end();
+      return res.clearCookie("access_token").status(200).json({"status":true}).end();
     } catch (e) {
       logger.error('error %o', e);
       return next(e);
