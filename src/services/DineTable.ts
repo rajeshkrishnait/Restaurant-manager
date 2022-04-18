@@ -64,4 +64,16 @@ export default class DineTableService {
       throw e;
     }
   }
+  public async deleteTable(tableId:String): Promise<{ status: boolean}> {
+    try {
+      const tableRecord = await this.dineTableModel.findByIdAndDelete(tableId);
+      if (!tableRecord) {
+        throw new Error('cannot delete table');
+      }
+      return { status:true };
+    } catch (e) {
+      this.logger.error(e);
+      throw e;
+    }
+  }
 }

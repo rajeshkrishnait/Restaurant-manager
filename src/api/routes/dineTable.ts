@@ -69,4 +69,23 @@ export default (app: Router) => {
         return next(e);
         }
     });
+    route.delete('/delete_table',
+    middlewares.isAuth,
+    async(req:Request, res:Response, next:NextFunction) =>{
+    const logger:Logger = Container.get('logger');
+    logger.debug('Calling delete table endpoint by admin with body: %o', req.body );
+    try {
+        const isValidRole = await middlewares.checkRole(req, "Admin", next)
+        if(isValidRole){
+            const DineTableServiceInstance = Container.get(DineTableService);
+            const { status } = await DineTableServiceInstance.deleteTable(req.body._id);
+            return res.status(201).json({ "status":status });
+        }else{
+            return res.json({message:"Not Authorized"});
+        }
+        } catch (e) {
+        logger.error('error: %o', e);
+        return next(e);
+        }
+    });
 }
