@@ -117,7 +117,15 @@ response{
         }
     ]
 }
-
+/table/delete_table - deletes table based on _id. accessible only to admin
+DELETE method
+needs token in header
+request{
+        "_id":"625aeb6d5f460852145d7c27"
+}
+response{
+    "status": true
+}
 /users/me - fetches current user details
 GET method
 needs access token in header
