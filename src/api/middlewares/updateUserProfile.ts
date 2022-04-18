@@ -2,7 +2,6 @@ import { Container } from 'typedi';
 import mongoose from 'mongoose';
 import { IUser } from '@/interfaces/IUser';
 import { Logger } from 'winston';
-import user from '../routes/user';
 
 
 const updateUserProfile = async (req, res, next) => {

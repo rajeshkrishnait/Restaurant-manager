@@ -3,7 +3,6 @@ import middlewares from '../middlewares';
 import { celebrate, Joi } from 'celebrate';
 import { Logger } from 'winston';
 import { Container } from 'typedi';
-import { IFood } from '@/interfaces/IFood';
 import ManagerService from '@/services/manager';
 const route = Router();
 

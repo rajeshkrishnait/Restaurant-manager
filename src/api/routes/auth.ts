@@ -1,12 +1,10 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { Container } from 'typedi';
 import AuthService from '@/services/auth';
-import { IUserInputDTO } from '@/interfaces/IUser';
 import { IRestaurantRoleDTO } from '@/interfaces/IRestaurantRole';
 import middlewares from '../middlewares';
 import { celebrate, Joi } from 'celebrate';
 import { Logger } from 'winston';
-import { eq } from 'lodash';
 
 const route = Router();
 

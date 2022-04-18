@@ -1,9 +1,5 @@
 import { Service, Inject } from 'typedi';
 import { IFood, IFoodDTO } from '@/interfaces/IFood';
-import { IRestaurant} from '@/interfaces/IRestaurant';
-import { v4 as uuidv4 } from 'uuid';
-import { EventDispatcher, EventDispatcherInterface } from '@/decorators/eventDispatcher';
-import { models } from 'mongoose';
 
 
 @Service()

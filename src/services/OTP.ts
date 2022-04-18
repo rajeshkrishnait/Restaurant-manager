@@ -4,15 +4,11 @@ import MailerService from './mailer';
 import config from '@/config';
 import { IOtpDTO, IOtpInput} from '@/interfaces/IOtp';
 import { EventDispatcher, EventDispatcherInterface } from '@/decorators/eventDispatcher';
-import events from '@/subscribers/events';
-import { EnvironmentCredentials } from 'aws-sdk';
 
 
-const router = require("express").Router();
 const {encode,decode} = require("../api/middlewares/crypt")
 var otpGenerator = require('otp-generator');
 const nodemailer = require('nodemailer')
-const smtpTransport = require('nodemailer-smtp-transport')
 
 function AddMinutesToDate(date, minutes) {
     return new Date(date.getTime() + minutes*60000);
@@ -105,8 +101,6 @@ export default class OtpService {
 
      transporter.sendMail(mailOptions, (err, response) => {
       
-      console.log(response)
-      console.log("err")
     });
     return {otpDetails};
   } catch (e) {
@@ -129,7 +123,6 @@ export default class OtpService {
       }
       
       var obj= JSON.parse(decoded)
-      console.log(obj)
       const check_obj = obj.check
       // Check if the OTP was meant for the same email or phone number for which it is being verified 
       if(check_obj!=otpInput.check){
@@ -137,7 +130,6 @@ export default class OtpService {
       }
   
       const otp_instance= await this.otpModel.findById(obj.otp_id)
-      console.log(otp_instance)
       //Check if OTP is available in the DB
       if(otp_instance!=null){
         //Check if OTP is already used or not

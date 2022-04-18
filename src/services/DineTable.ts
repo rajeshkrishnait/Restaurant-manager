@@ -1,10 +1,6 @@
 import { Service, Inject } from 'typedi';
-import config from '@/config';
-import argon2 from 'argon2';
-import { randomBytes } from 'crypto';
 import { IDine, IDineDTO } from '@/interfaces/IDine';
 import { EventDispatcher, EventDispatcherInterface } from '@/decorators/eventDispatcher';
-import events from '@/subscribers/events';
 import { v4 as uuidv4 } from 'uuid';
 
 @Service()

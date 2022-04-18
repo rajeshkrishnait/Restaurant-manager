@@ -1,8 +1,5 @@
 import { Container } from 'typedi';
-import mongoose from 'mongoose';
-import { IUser } from '@/interfaces/IUser';
 import { Logger } from 'winston';
-import user from '../routes/user';
 
 
 export default async function checkRole (req, role, next) {

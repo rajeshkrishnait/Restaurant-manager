@@ -1,8 +1,6 @@
 import { Service, Inject } from 'typedi';
-import { randomBytes } from 'crypto';
 import { IFoodDTO, IFood } from '@/interfaces/IFood';
 import { EventDispatcher, EventDispatcherInterface } from '@/decorators/eventDispatcher';
-import events from '@/subscribers/events';
 
 @Service()
 export default class ManagerService {

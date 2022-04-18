@@ -1,8 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { Container } from 'typedi';
 import OtpService from '@/services/OTP';
-import { IOtp } from '@/interfaces/IOtp';
-import middlewares from '../middlewares';
 import { celebrate, Joi } from 'celebrate';
 import { Logger } from 'winston';
 
