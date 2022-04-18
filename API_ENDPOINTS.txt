@@ -330,3 +330,36 @@ response{
     "status":true,
     "access_token":""
 }
+
+18. /cusomer/get_foods - gets food in menu/ accessible only to customers
+GET method
+request{
+
+}
+
+response{
+    "foodDetails": [
+        {
+            "inMenu": true,
+            "_id": "625b0bd653b5f64920702c8e",
+            "restaurant": "Namma Sappadu",
+            "name": "vada",
+            "price": 150,
+            "category": "lunch",
+            "createdAt": "2022-04-16T18:32:54.647Z",
+            "updatedAt": "2022-04-16T18:32:54.647Z",
+            "__v": 0
+        },
+        {
+            "inMenu": true,
+            "_id": "625b0be653b5f64920702c90",
+            "restaurant": "Namma Sappadu",
+            "name": "biriyani",
+            "price": 150,
+            "category": "lunch",
+            "createdAt": "2022-04-16T18:33:10.040Z",
+            "updatedAt": "2022-04-16T18:33:10.040Z",
+            "__v": 0
+        }
+    ]
+}

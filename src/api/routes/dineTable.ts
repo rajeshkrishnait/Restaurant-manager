@@ -1,6 +1,5 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import middlewares from '../middlewares';
-import { celebrate, Joi } from 'celebrate';
 import { Logger } from 'winston';
 import { Container } from 'typedi';
 import { IDineDTO } from '@/interfaces/IDine';

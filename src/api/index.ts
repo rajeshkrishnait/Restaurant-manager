@@ -5,6 +5,7 @@ import agendash from './routes/agendash';
 import dineTable from './routes/dineTable';
 import admin from './routes/admin';
 import manager from './routes/manager';
+import customer from './routes/customer';
 
 import customerOtp from './routes/customerOtp';
 // guaranteed to get dependencies
@@ -17,5 +18,7 @@ export default () => {
 	customerOtp(app);
 	admin(app)
 	manager(app)
+	customer(app)
+
 	return app
 }
