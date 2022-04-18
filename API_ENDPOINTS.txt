@@ -1,6 +1,6 @@
 API ENDPOINTs:
 
-/auth/create_managers - creates managers, only accessible to admins
+1. /auth/create_managers - creates managers, only accessible to admins
 needs JWT Token in header
 POST method
 request:{
@@ -26,7 +26,7 @@ response:
 }
 
 
-/auth/sigin - sign in Managers and Admins
+2. /auth/sigin - sign in Managers and Admins
 POST method
 request:{
     "password":"passwordchecker",
@@ -51,7 +51,7 @@ response:
 }
 }
 
-/table/create_table - creates table based on name. accessible only to admins
+3. /table/create_table - creates table based on name. accessible only to admins
 needs JWT Token in header
 POST method
 request{
@@ -69,7 +69,7 @@ response{
 }
 }
 
-/table/refresh_qr - updates table Qr based on _id. accessible only to admins.
+4. /table/refresh_qr - updates table Qr based on _id. accessible only to admins.
 needs JWT token in header
 PUT method
 request{
@@ -88,7 +88,11 @@ response{
 }
 
 
-/table/get_tables - get details of all tables. Accessible only to Admins
+5. /table/get_tables - get details of all tables. Accessible only to Admins
+pass occupied=true or occupied=false in the query to get tables that are occupied or not occupied. No occupied in query returns all tables
+ex:
+http://localhost:3000/api/table/get_tables?occupied=false
+http://localhost:3000/api/table/get_tables?occupied=true
 need JWT token in header
 GET method
 
@@ -117,7 +121,27 @@ response{
         }
     ]
 }
-/table/delete_table - deletes table based on _id. accessible only to admin
+6. /tables/update_table - updates table values based on _id. accessible only to admin
+PUT method.
+needs token in header
+pass the values that you want to update. (name or status).
+request{
+    "_id":"625a8a3f0917215290784cbd",
+    "status":true
+}
+resposne{
+    "tableDetail": {
+        "status": true,
+        "_id": "625a8a3f0917215290784cbd",
+        "restaurant": "Namma Sappadu",
+        "name": "R1",
+        "qrCode": "b8772ee4cca2f99c748007509b69994803c616ee96a2bd8d849f13ec74c8e193",
+        "createdAt": "2022-04-16T09:19:59.496Z",
+        "updatedAt": "2022-04-18T13:46:58.570Z",
+        "__v": 0
+    }
+}
+7. /table/delete_table - deletes table based on _id. accessible only to admin
 DELETE method
 needs token in header
 request{
@@ -126,12 +150,13 @@ request{
 response{
     "status": true
 }
-/users/me - fetches current user details
+
+8.  /users/me - fetches current user details
 GET method
 needs access token in header
 request{
 
-}
+
 response{
     "user": {
         "role": "Admin",
@@ -146,7 +171,7 @@ response{
     }
 }
 
-/admin/get_managers - fetches all managers. accessible only to admins
+9. /admin/get_managers - fetches all managers. accessible only to admins
 GET method
 needs access token in header
 request{
@@ -179,7 +204,7 @@ response{
     ]
 }
 
-/admin/delete_manager - deletes manager with specified _id. accessible only to admin
+10. /admin/delete_manager - deletes manager with specified _id. accessible only to admin
 DELETE method
 needs access token in header
 
@@ -190,7 +215,7 @@ response{
     status:true
 }
 
-/admin/refresh_qr - refreshes restaurant qr. accessible only to admins
+11. /admin/refresh_qr - refreshes restaurant qr. accessible only to admins
 PUT method
 needs access token in header
 request{
@@ -205,7 +230,7 @@ response{
     }
 }
 
-/manager/create_food - creates food based on the details in the body. accessible only to manager
+12. /manager/create_food - creates food based on the details in the body. accessible only to manager
 POST method
 needs access token in header
 
@@ -219,7 +244,7 @@ response{
     "status":true
 }
 
-/manager/get_food - fetches all food. accessible only to manager. use ?inMenu=true as query parameter in url, http://localhost:3000/api/manager/get_food?inMenu=true, for retrieving menu food
+13. /manager/get_food - fetches all food. accessible only to manager. use ?inMenu=true as query parameter in url, http://localhost:3000/api/manager/get_food?inMenu=true, for retrieving menu food
 GET method
 needs access token in header
 request{
@@ -250,7 +275,7 @@ response{
     ]
 }
 
-/manager/update_food - updates food based on id. accessible only to manager [for menu change, put inMenu:"true"||"false" in the query]
+14. /manager/update_food - updates food based on id. accessible only to manager [for menu change, put inMenu:"true"||"false" in the query]
 PUT method
 needs access token in header
 request{
@@ -270,7 +295,8 @@ response{
         "__v": 0
     }
 }
-/manager/delete_food - deletes food based on id. accessible only to manager
+
+15. /manager/delete_food - deletes food based on id. accessible only to manager
 DELETE method
 needs access token in header
 request{
@@ -282,7 +308,7 @@ response{
 
 
 //ignore error shown in services/OTP.ts, that is due to typescript. will fix it in sometime
-/otp/email_route - sends otp via email. 
+16. /otp/email_route - sends otp via email. 
 POST method
 request{
     "email":"krishnarajesh1998@gmail.com"
@@ -293,7 +319,7 @@ response{
     "email":"krishnarajesh1998@gmail.com"
 }
 
-/otp/verify_otp - verifies otp
+17. /otp/verify_otp - verifies otp
 POST method
 request{
     "verificationKey":"r0ssXoXslhOqXfpmeHoXio6O+Y5RFAScn+yWu8ukTWrazqsPiwsZ6kwPqcUbgz/s0zRE71j3duWVBjmslWXRR1AfBkrCWMTJCMkMLKCNfTc0MP/jeVU8h0lMJPcZAw/jF0ENRynHJQ9v80Ffc2wE/CwXcflQk7bvHgGjwpaSiVdOfJIXUjoAPD+k55i2bYIjDA7i3Z7rPypn2QrCEIsm7w==",

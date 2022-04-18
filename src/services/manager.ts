@@ -77,7 +77,6 @@ export default class ManagerService {
       if (!foodRecord) {
         throw new Error('cannot delete manager');
       }
-      console.log(foodRecord)
       return { status:true };
     } catch (e) {
       this.logger.error(e);

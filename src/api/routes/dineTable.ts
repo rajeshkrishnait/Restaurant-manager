@@ -59,7 +59,8 @@ export default (app: Router) => {
         const isValidRole = await middlewares.checkRole(req, "Admin", next)
         if(isValidRole){
             const DineTableServiceInstance = Container.get(DineTableService);
-            const { tableDetails } = await DineTableServiceInstance.getAllTableDetails();
+            const occupied = req.query.occupied === undefined? "allTables":req.query.occupied;
+            const { tableDetails } = await DineTableServiceInstance.getAllTableDetails(occupied as string);
             return res.status(201).json({ tableDetails });
         }else{
             return res.json({message:"Not Authorized"});
@@ -69,6 +70,26 @@ export default (app: Router) => {
         return next(e);
         }
     });
+    route.put('/update_table',
+    middlewares.isAuth,
+    async(req:Request, res:Response, next:NextFunction) =>{
+    const logger:Logger = Container.get('logger');
+    logger.debug('Calling Update table by Admin with body: %o', req.body );
+    try {
+        const isValidRole = await middlewares.checkRole(req, "Admin", next)
+        if(isValidRole){
+            const DineTableServiceInstance = Container.get(DineTableService);
+            const { tableDetail } = await DineTableServiceInstance.updateTable(req.body);
+            return res.status(201).json({ tableDetail });
+        }else{
+            return res.json({message:"Not Authorized"});
+        }
+        } catch (e) {
+        logger.error('error: %o', e);
+        return next(e);
+        }
+    });
+
     route.delete('/delete_table',
     middlewares.isAuth,
     async(req:Request, res:Response, next:NextFunction) =>{

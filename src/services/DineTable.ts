@@ -51,9 +51,11 @@ export default class DineTableService {
       throw e;
     }
   }
-  public async getAllTableDetails(): Promise<{ tableDetails: IDine[]}> {
+  public async getAllTableDetails(occupied:string): Promise<{ tableDetails: IDine[]}> {
     try {
-      const tableRecord = await this.dineTableModel.find({});
+      const tableRecord = (occupied=="true")? await this.dineTableModel.find({status:true}):
+                          (occupied == "false"?await this.dineTableModel.find({status:false}):
+                          await this.dineTableModel.find({}));
       if (!tableRecord) {
         throw new Error('dining table cannot be created');
       }
@@ -64,6 +66,20 @@ export default class DineTableService {
       throw e;
     }
   }
+  public async updateTable(tableInput:IDine): Promise<{tableDetail:IDine}>{
+    try{
+      const tableRecord = await this.dineTableModel.findById(tableInput._id);
+      if(!tableRecord){
+          throw new Error("table record not found")
+      }
+      tableRecord.name = tableInput.name?tableInput.name:tableRecord.name
+      tableRecord.status = tableInput.status?tableInput.status:tableRecord.status
+      await tableRecord.save()
+      return {tableDetail:tableRecord}
+    }catch{
+
+    }
+}
   public async deleteTable(tableId:String): Promise<{ status: boolean}> {
     try {
       const tableRecord = await this.dineTableModel.findByIdAndDelete(tableId);
