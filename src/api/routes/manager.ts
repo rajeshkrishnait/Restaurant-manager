@@ -66,7 +66,7 @@ export default (app: Router) => {
         return next(e);
         }
     });
-    route.delete('/delete_food',
+    route.delete('/delete_food/:_id',
     middlewares.isAuth,
     async(req:Request, res:Response, next:NextFunction) =>{
     const logger:Logger = Container.get('logger');
@@ -75,7 +75,7 @@ export default (app: Router) => {
         const isValidRole = await middlewares.checkRole(req, "Manager", next)
         if(isValidRole){
             const ManagerServiceInstance = Container.get(ManagerService);
-            const { status } = await ManagerServiceInstance.deleteFood(req.body._id);
+            const { status } = await ManagerServiceInstance.deleteFood(req.params._id);
             return res.status(201).json({ "status":status });
         }else{
             return res.json({message:"Not Authorized"});

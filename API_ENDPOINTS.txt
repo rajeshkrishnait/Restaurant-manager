@@ -141,17 +141,26 @@ resposne{
         "__v": 0
     }
 }
-7. /table/delete_table - deletes table based on _id. accessible only to admin
+7. /table/delete_table/:_id - deletes table based on _id. accessible only to admin
 DELETE method
 needs token in header
 request{
-        "_id":"625aeb6d5f460852145d7c27"
+        
 }
 response{
     "status": true
 }
 
-8.  /users/me - fetches current user details
+8. /table/get_current_qr/:_id - gets the current qr for the table _id. accessible only to admin. pass id as params. EX:http://localhost:3000/api/table/get_current_qr/625c1cbc67fbbd344ce8409c
+GET method
+needs token in header
+request{
+
+}
+response{
+    "currentQr": "58105f78-0f3b-4d46-820d-c390857c90aa"
+}
+9.  /users/me - fetches current user details
 GET method
 needs access token in header
 request{
@@ -171,7 +180,7 @@ response{
     }
 }
 
-9. /admin/get_managers - fetches all managers. accessible only to admins
+10. /admin/get_managers - fetches all managers. accessible only to admins
 GET method
 needs access token in header
 request{
@@ -204,18 +213,17 @@ response{
     ]
 }
 
-10. /admin/delete_manager - deletes manager with specified _id. accessible only to admin
+11. /admin/delete_manager/:_id - deletes manager with specified _id. accessible only to admin
 DELETE method
 needs access token in header
 
 request{
-    "_id" : ""
 }
 response{
     status:true
 }
 
-11. /admin/refresh_qr - refreshes restaurant qr. accessible only to admins
+12. /admin/refresh_qr - refreshes restaurant qr. accessible only to admins
 PUT method
 needs access token in header
 request{
@@ -230,7 +238,17 @@ response{
     }
 }
 
-12. /manager/create_food - creates food based on the details in the body. accessible only to manager
+13. /admin/get_current_qr - gets current restaurant qr. accessible only to admins. No _id required
+GET method
+needs access token in header
+request{
+
+}
+response{
+    "currentQr": "58105f78-0f3b-4d46-820d-c390857c90aa"
+}
+
+14. /manager/create_food - creates food based on the details in the body. accessible only to manager
 POST method
 needs access token in header
 
@@ -244,7 +262,7 @@ response{
     "status":true
 }
 
-13. /manager/get_food - fetches all food. accessible only to manager. use ?inMenu=true as query parameter in url, http://localhost:3000/api/manager/get_food?inMenu=true, for retrieving menu food
+15. /manager/get_food - fetches all food. accessible only to manager. use ?inMenu=true as query parameter in url, http://localhost:3000/api/manager/get_food?inMenu=true, for retrieving menu food
 GET method
 needs access token in header
 request{
@@ -275,7 +293,7 @@ response{
     ]
 }
 
-14. /manager/update_food - updates food based on id. accessible only to manager [for menu change, put inMenu:"true"||"false" in the query]
+16. /manager/update_food - updates food based on id. accessible only to manager [for menu change, put inMenu:"true"||"false" in the query]
 PUT method
 needs access token in header
 request{
@@ -296,11 +314,10 @@ response{
     }
 }
 
-15. /manager/delete_food - deletes food based on id. accessible only to manager
+17. /manager/delete_food:_id - deletes food based on id. accessible only to manager
 DELETE method
 needs access token in header
 request{
-    "_id":"625b03f057132902e450444e"
 }
 response{
     "status": true
@@ -308,7 +325,7 @@ response{
 
 
 //ignore error shown in services/OTP.ts, that is due to typescript. will fix it in sometime
-16. /otp/email_route - sends otp via email. 
+18. /otp/email_route - sends otp via email. 
 POST method
 request{
     "email":"krishnarajesh1998@gmail.com"
@@ -319,7 +336,7 @@ response{
     "email":"krishnarajesh1998@gmail.com"
 }
 
-17. /otp/verify_otp - verifies otp
+19. /otp/verify_otp - verifies otp
 POST method
 request{
     "verificationKey":"r0ssXoXslhOqXfpmeHoXio6O+Y5RFAScn+yWu8ukTWrazqsPiwsZ6kwPqcUbgz/s0zRE71j3duWVBjmslWXRR1AfBkrCWMTJCMkMLKCNfTc0MP/jeVU8h0lMJPcZAw/jF0ENRynHJQ9v80Ffc2wE/CwXcflQk7bvHgGjwpaSiVdOfJIXUjoAPD+k55i2bYIjDA7i3Z7rPypn2QrCEIsm7w==",
@@ -331,7 +348,7 @@ response{
     "access_token":""
 }
 
-18. /cusomer/get_foods - gets food in menu/ accessible only to customers
+20. /cusomer/get_foods - gets food in menu/ accessible only to customers
 GET method
 request{
 

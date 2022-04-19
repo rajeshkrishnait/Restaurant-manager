@@ -1,10 +1,8 @@
 import { Service, Inject } from 'typedi';
-import { randomBytes } from 'crypto';
 import { IRestaurantRole, IRestaurantRoleDTO } from '@/interfaces/IRestaurantRole';
 import { IRestaurant} from '@/interfaces/IRestaurant';
 import { v4 as uuidv4 } from 'uuid';
 import { EventDispatcher, EventDispatcherInterface } from '@/decorators/eventDispatcher';
-import events from '@/subscribers/events';
 
 @Service()
 export default class AdminService {
@@ -57,5 +55,17 @@ export default class AdminService {
       throw e;
     }
   }
-  
+  public async getCurrentQr(): Promise<{ currentQr: String}> {
+    try {
+      const restaurantRecord = await this.restaurantModel.findById( "625bab55dfa9f8cc1a0d23c5");
+      if (!restaurantRecord) {
+        throw new Error('Restaurant record not found');
+      }
+      const qrRecord = restaurantRecord.qr
+      return { currentQr:qrRecord };
+    } catch (e) {
+      this.logger.error(e);
+      throw e;
+    }
+  }
 }

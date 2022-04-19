@@ -27,7 +27,7 @@ export default (app: Router) => {
         return next(e);
         }
     });
-    route.delete('/delete_manager',
+    route.delete('/delete_manager/:_id',
     middlewares.isAuth,
     async(req:Request, res:Response, next:NextFunction) =>{
     const logger:Logger = Container.get('logger');
@@ -36,7 +36,7 @@ export default (app: Router) => {
         const isValidRole = await middlewares.checkRole(req, "Admin", next)
         if(isValidRole){
             const AdminServiceInstance = Container.get(AdminService);
-            const { status } = await AdminServiceInstance.deleteManager(req.body._id);
+            const { status } = await AdminServiceInstance.deleteManager(req.params._id);
             return res.status(201).json({ "status":status });
         }else{
             return res.json({message:"Not Authorized"});
@@ -65,5 +65,23 @@ export default (app: Router) => {
         return next(e);
         }
     });
-
+    route.get('/get_current_qr',
+    middlewares.isAuth,
+    async (req:Request, res:Response,next:NextFunction)=>{
+        const logger:Logger = Container.get('logger');
+        logger.debug('Calling get restaurant qr endpoint by admin with body: %o', req.body );
+    try {
+        const isValidRole = await middlewares.checkRole(req, "Admin", next)
+        if(isValidRole){
+            const AdminServiceInstance = Container.get(AdminService);
+            const { currentQr } = await AdminServiceInstance.getCurrentQr();
+            return res.status(201).json({ currentQr });
+        }else{
+            return res.json({message:"Not Authorized"});
+        }
+        } catch (e) {
+        logger.error('error: %o', e);
+        return next(e);
+        }
+    });
 }

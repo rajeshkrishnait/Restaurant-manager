@@ -89,7 +89,7 @@ export default (app: Router) => {
         }
     });
 
-    route.delete('/delete_table',
+    route.delete('/delete_table/:_id',
     middlewares.isAuth,
     async(req:Request, res:Response, next:NextFunction) =>{
     const logger:Logger = Container.get('logger');
@@ -98,8 +98,27 @@ export default (app: Router) => {
         const isValidRole = await middlewares.checkRole(req, "Admin", next)
         if(isValidRole){
             const DineTableServiceInstance = Container.get(DineTableService);
-            const { status } = await DineTableServiceInstance.deleteTable(req.body._id);
+            const { status } = await DineTableServiceInstance.deleteTable(req.params._id);
             return res.status(201).json({ "status":status });
+        }else{
+            return res.json({message:"Not Authorized"});
+        }
+        } catch (e) {
+        logger.error('error: %o', e);
+        return next(e);
+        }
+    });
+    route.get('/get_current_qr/:_id',
+    middlewares.isAuth,
+    async (req:Request, res:Response,next:NextFunction)=>{
+        const logger:Logger = Container.get('logger');
+        logger.debug('Calling get table qr by admin with body: %o', req.body );
+    try {
+        const isValidRole = await middlewares.checkRole(req, "Admin", next)
+        if(isValidRole){
+            const DineTableServiceInstance = Container.get(DineTableService);
+            const { currentQr } = await DineTableServiceInstance.getCurrentQr(req.params._id);
+            return res.status(201).json({ currentQr });
         }else{
             return res.json({message:"Not Authorized"});
         }

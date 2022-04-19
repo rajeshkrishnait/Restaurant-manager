@@ -88,4 +88,17 @@ export default class DineTableService {
       throw e;
     }
   }
+  public async getCurrentQr(tableId:String): Promise<{ currentQr: String}> {
+    try {
+      const tableRecord = await this.dineTableModel.findById( tableId);
+      if (!tableRecord) {
+        throw new Error('Restaurant record not found');
+      }
+      const qrRecord = tableRecord.qrCode
+      return { currentQr:qrRecord };
+    } catch (e) {
+      this.logger.error(e);
+      throw e;
+    }
+  }
 }
