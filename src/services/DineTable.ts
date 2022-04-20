@@ -69,7 +69,7 @@ export default class DineTableService {
           throw new Error("table record not found")
       }
       tableRecord.name = tableInput.name?tableInput.name:tableRecord.name
-      tableRecord.status = tableInput.status?tableInput.status:tableRecord.status
+      tableRecord.status = !tableRecord.status
       await tableRecord.save()
       return {tableDetail:tableRecord}
     }catch{
