@@ -3,24 +3,22 @@ API ENDPOINTs:
 1. /auth/create_managers - creates managers, only accessible to admins
 needs JWT Token in header
 POST method
-request:{
-    "email":"rajeshkrishnarajakumar@gmail.com",
+request:{  
+     "email":"rajeshkrshnarajakumar@gmail.com",
     "password":"passwordchecker",
-    "username":"raj",
-    "phone":"7904601211",
-    "role":"Manager",
-    "status":"active",
+    "username":"raji",
+    "phone":"7994601211"
 }
-response:
-{
+response:{
     "user": {
+        "status": true,
         "role": "Manager",
-        "_id": "625911221f562b2e4c3a9d07",
-        "email": "rajeshkrishnarajakumar@gmail.com",
-        "phone": 7904601211,
-        "status": "active",
-        "createdAt": "2022-04-15T06:30:58.093Z",
-        "updatedAt": "2022-04-15T06:30:58.093Z",
+        "_id": "625fdae6f9c09351f00885cb",
+        "email": "rajeshkrshnarajakumar@gmail.com",
+        "username": "raji",
+        "phone": 7994601211,
+        "createdAt": "2022-04-20T10:05:26.817Z",
+        "updatedAt": "2022-04-20T10:05:26.817Z",
         "__v": 0
     }
 }
