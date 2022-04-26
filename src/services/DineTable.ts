@@ -101,4 +101,16 @@ export default class DineTableService {
       throw e;
     }
   }
+  public async getTable(tableId:String): Promise<{ tableDetail:IDine}> {
+    try {
+      const tableRecord = await this.dineTableModel.findById( tableId);
+      if (!tableRecord) {
+        throw new Error('Restaurant record not found');
+      }
+      return { tableDetail:tableRecord };
+    } catch (e) {
+      this.logger.error(e);
+      throw e;
+    }
+  }
 }

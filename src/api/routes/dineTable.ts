@@ -48,7 +48,25 @@ export default (app: Router) => {
         return next(e);
         }
     });
-
+    route.get('/get_table/:_id',
+    middlewares.isAuth,
+    async(req:Request, res:Response, next:NextFunction) =>{
+    const logger:Logger = Container.get('logger');
+    logger.debug('Calling get table based on id endpoint by admin with body: %o', req.body );
+    try {
+        const isValidRole = await middlewares.checkRole(req, "Admin", next)
+        if(isValidRole){
+            const DineTableServiceInstance = Container.get(DineTableService);
+            const { tableDetail } = await DineTableServiceInstance.getTable(req.params._id);
+            return res.status(201).json({ tableDetail });
+        }else{
+            return res.json({message:"Not Authorized"});
+        }
+        } catch (e) {
+        logger.error('error: %o', e);
+        return next(e);
+        }
+    });
     route.get('/get_tables',
     middlewares.isAuth,
     async(req:Request, res:Response, next:NextFunction) =>{
