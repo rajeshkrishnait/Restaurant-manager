@@ -34,7 +34,8 @@ export default class ManagerService {
         foodRecord.name = foodInput.name?foodInput.name:foodRecord.name
         foodRecord.price = foodInput.price?foodInput.price:foodRecord.price
         foodRecord.category = foodInput.category?foodInput.category:foodRecord.category
-        foodRecord.inMenu = foodInput.inMenu?foodInput.inMenu:foodRecord.inMenu
+        // foodRecord.inMenu = foodInput.inMenu?foodInput.inMenu:foodRecord.inMenu
+        foodRecord.inMenu = foodInput.inMenu;
         foodRecord.image = foodInput.image?foodInput.image:foodRecord.image
         console.log(foodRecord)
         await foodRecord.save()
@@ -45,7 +46,7 @@ export default class ManagerService {
   }
   public async getFood(): Promise<{ foodDetails: IFood[]}> {
     try {
-        
+
       const foodRecords = await this.foodModel.find();
       if (!foodRecords) {
         throw new Error('manager Records not found');
@@ -58,7 +59,7 @@ export default class ManagerService {
   }
   public async getMenuFood(): Promise<{ foodDetails: IFood[]}> {
     try {
-        
+
       const foodRecords = await this.foodModel.find({inMenu:true});
       if (!foodRecords) {
         throw new Error('manager Records not found');
@@ -81,5 +82,5 @@ export default class ManagerService {
       throw e;
     }
   }
-  
+
 }
