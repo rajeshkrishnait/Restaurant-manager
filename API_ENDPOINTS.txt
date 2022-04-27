@@ -158,7 +158,7 @@ response{
     "currentQr": "58105f78-0f3b-4d46-820d-c390857c90aa"
 }
 
-9. /get_table/:_id - fetches the table details based on _id. Accessible only to admins
+9. table/get_table/:_id - fetches the table details based on _id. Accessible only to admins
 needs auth token in header
 GET method
 request{

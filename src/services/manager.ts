@@ -46,7 +46,7 @@ export default class ManagerService {
   public async getFood(): Promise<{ foodDetails: IFood[]}> {
     try {
         
-      const foodRecords = await this.foodModel.find({inMenu:false});
+      const foodRecords = await this.foodModel.find();
       if (!foodRecords) {
         throw new Error('manager Records not found');
       }
