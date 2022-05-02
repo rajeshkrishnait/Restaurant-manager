@@ -16,6 +16,9 @@ export default {
   databaseURL: process.env.MONGODB_URI,
 
   jwtSecret: process.env.JWT_SECRET,
+  resSecret: process.env.RES_SECRET,
+  dineSecret: process.env.DINE_SECRET,
+  customerSecret: process.env.CUSTOMER_SECRET,
   jwtAlgorithm: process.env.JWT_ALGO,
 
   

@@ -342,6 +342,7 @@ response{
 
 //ignore error shown in services/OTP.ts, that is due to typescript. will fix it in sometime
 19. /otp/email_route - sends otp via email. 
+Needs Restaurant Token, Dine TOken in header
 POST method
 request{
     "email":"krishnarajesh1998@gmail.com"
@@ -354,6 +355,7 @@ response{
 
 20. /otp/verify_otp - verifies otp
 POST method
+Needs Restaurant Token, Dine TOken in header
 request{
     "verificationKey":"r0ssXoXslhOqXfpmeHoXio6O+Y5RFAScn+yWu8ukTWrazqsPiwsZ6kwPqcUbgz/s0zRE71j3duWVBjmslWXRR1AfBkrCWMTJCMkMLKCNfTc0MP/jeVU8h0lMJPcZAw/jF0ENRynHJQ9v80Ffc2wE/CwXcflQk7bvHgGjwpaSiVdOfJIXUjoAPD+k55i2bYIjDA7i3Z7rPypn2QrCEIsm7w==",
     "otp":"zRbZ1LZ",
@@ -396,3 +398,38 @@ response{
         }
     ]
 }
+
+22. customer/validate_restaurant - validates Restaurant Qr
+POST method
+input: 
+		{
+			"qr_code": "QR_CODE_TEXT"
+		}
+output: 
+	 success: 
+		{
+			"status": true,
+			"token": "RESTAURANT_TOKEN"
+		}
+	 error:
+		{
+			"status": false
+		}
+23. customer/validate_Dine - validates Dine Qr
+POST method
+Needs Restaurant Token
+input:
+		{
+			"qr_code": "QR_CODE_TEXT"
+		}
+	output: 
+	 success:
+		{
+			"status": true,
+			"token": "DINE_TOKEN",
+		}
+	 error:
+		{
+			"status": false,
+			"message": "dine qr not valid" || "restaurant not validated"
+		}

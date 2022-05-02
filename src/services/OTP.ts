@@ -91,7 +91,7 @@ export default class OtpService {
 
 
     const mailOptions = {
-      from: `"Rajesh Krishna"<${process.env.EMAIL_ADDRESS}>`,
+      from: `"Restaurant Manager Corporation"<${process.env.EMAIL_ADDRESS}>`,
       to: `${email}`,
       subject: email_subject,
       text: email_message ,
