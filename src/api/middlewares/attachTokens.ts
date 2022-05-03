@@ -5,15 +5,24 @@ import { Logger, loggers } from 'winston';
 
 
 
-
+const getTokenFromHeader = req => {
+  if (
+    (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Token') ||
+    (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer')
+  ) {
+    return req.headers.authorization.split(' ')[1];
+  }
+  return req.headers.authorization;
+};
 export default async function attachTokens (req, res, next) {
   const Logger : Logger = Container.get('logger');
 
   try{
-    const tokenArray = req.headers.authorization.split(' ')
-    const resToken = tokenArray[1].toString().split('||')[0]
-    const dineToken = tokenArray[1].toString().split('||')[1]
-    const otpToken = tokenArray[1].toString().split('||')[2]
+    const tokens = getTokenFromHeader(req);
+    console.log("Ss")
+    const resToken = tokens.toString().split('||')[0]
+    const dineToken = tokens.toString().split('||')[1]
+    const otpToken = tokens.toString().split('||')[2]
     req.resToken = resToken
     req.dineToken = dineToken
     req.otpToken = otpToken
