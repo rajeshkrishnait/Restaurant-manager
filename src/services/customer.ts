@@ -62,7 +62,7 @@ export default class CustomerService{
           },
           config.resSecret,
           {
-            expiresIn:'12h'
+            expiresIn:'2h'
           },
         );
       }
@@ -75,7 +75,7 @@ export default class CustomerService{
           },
           config.dineSecret,
           {
-            expiresIn:'12h'
+            expiresIn:'2h'
           },
         );
       }
