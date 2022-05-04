@@ -25,6 +25,7 @@ export default async function attachTokens (req, res, next) {
     req.resToken = resToken
     req.dineToken = dineToken
     req.otpToken = otpToken
+    console.log(otpToken)
     return next();
   }
   catch(e){

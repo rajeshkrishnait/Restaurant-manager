@@ -17,14 +17,9 @@ export default (app:Router)=>{
         const logger:Logger = Container.get('logger')
         logger.debug('calling get_foods endpoint by customer with body: %o', req.body )
         try{
-            const isValidRole = await middlewares.checkRole(req, "Customer", next)
-            if(isValidRole){
               const customerServiceInstance = Container.get(CustomerService);
               const { foodDetails } = await customerServiceInstance.getFoods();
               return res.status(201).json({ foodDetails });
-            }else{
-              return res.json("Not Authorized")
-            }
         }catch(e){
             logger.error('error: %o', e);
             return next(e);

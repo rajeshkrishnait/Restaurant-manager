@@ -5,6 +5,7 @@ import checkRole from './checkRole';
 import resAuth from './resAuth';
 import attachTokens from './attachTokens'
 import dineAuth from './dineAuth'
+import otpAuth from './otpAuth'
 export default {
   attachCurrentUser,
   updateUserProfile,
@@ -12,5 +13,6 @@ export default {
   checkRole,
   resAuth,
   attachTokens,
-  dineAuth
+  dineAuth,
+  otpAuth
 };
