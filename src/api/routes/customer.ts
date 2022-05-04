@@ -9,7 +9,10 @@ const route = Router();
 export default (app:Router)=>{
     app.use('/customer', route)
     route.get('/get_foods', 
-    middlewares.isAuth,
+    middlewares.attachTokens,
+    middlewares.resAuth,
+    middlewares.dineAuth,
+    middlewares.otpAuth,
     async (req:Request, res:Response, next:NextFunction) =>{
         const logger:Logger = Container.get('logger')
         logger.debug('calling get_foods endpoint by customer with body: %o', req.body )

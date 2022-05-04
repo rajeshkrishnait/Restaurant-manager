@@ -19,7 +19,6 @@ export default async function attachTokens (req, res, next) {
 
   try{
     const tokens = getTokenFromHeader(req);
-    console.log("Ss")
     const resToken = tokens.toString().split('||')[0]
     const dineToken = tokens.toString().split('||')[1]
     const otpToken = tokens.toString().split('||')[2]
