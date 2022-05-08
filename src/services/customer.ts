@@ -86,8 +86,8 @@ export default class CustomerService{
                 comment:orderCartItem[i].comment,
             })
           }
+          return {orderDetails:order_id}
       }
-      return {orderDetails:order_id}
       }catch(e){
         this.logger.error(e);
         throw e;
