@@ -433,3 +433,35 @@ input:
 			"status": false,
 			"message": "dine qr not valid" || "restaurant not validated"
 		}
+
+24. customer/make_order - makes new order if order_id is not specified else creates a new order.
+needs all three tokens in header,
+POST method
+request:
+   {
+    "order_id":"fd946ea7-3b3b-4155-97a9-549434b83f56",
+   "food": [
+			{
+				"food_id": "625b0bd653b5f64920702c8e",
+				"quantity": "3",
+				"comment": "FOOD_CUSTOMIZATION"
+			},
+			{
+				"food_id": "625b0be653b5f64920702c90",
+				"quantity": "4",
+				"comment": "FOOD_CUSTOMIZATION"
+			}
+		]
+    }
+response:
+    success:
+        {
+            "status": true,
+            "orderId": "fd946ea7-3b3b-4155-97a9-549434b83f56",
+            "message": "created successfully"
+        }
+    failure:
+        {
+			"status": false,
+			"message": "order created failed"
+		}

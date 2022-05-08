@@ -22,10 +22,11 @@ export default async function attachTokens (req, res, next) {
     const resToken = tokens.toString().split('||')[0]
     const dineToken = tokens.toString().split('||')[1]
     const otpToken = tokens.toString().split('||')[2]
+    // console.log(JSON.parse(resToken) )
+
     req.resToken = resToken
     req.dineToken = dineToken
     req.otpToken = otpToken
-    console.log(otpToken)
     return next();
   }
   catch(e){

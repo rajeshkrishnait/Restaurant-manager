@@ -8,6 +8,7 @@ import manager from './routes/manager';
 import customer from './routes/customer';
 
 import customerOtp from './routes/customerOtp';
+import recommendation from './routes/recommendation';
 // guaranteed to get dependencies
 export default () => {
 	const app = Router();
@@ -19,6 +20,6 @@ export default () => {
 	admin(app)
 	manager(app)
 	customer(app)
-
+	recommendation(app)
 	return app
 }

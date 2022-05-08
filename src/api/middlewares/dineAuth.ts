@@ -4,6 +4,7 @@ import config from '@/config';
 
 const getTokenFromHeader = req => {
   if(req.dineToken){
+    console.log(req.dineTOken)
       return req.dineToken 
   }
 }

@@ -34,6 +34,15 @@ export default async ({ expressApp }) => {
     name:'restaurantModel',
     model:require('../models/restaurant').default
   }
+
+  const orderModel = {
+    name:'orderModel',
+    model:require('../models/order').default
+  }
+  const orderItemModel = {
+    name:'orderItemModel',
+    model:require('../models/orderItems').default
+  }
   const { agenda } = await dependencyInjectorLoader({
     mongoConnection,
     models: [
@@ -42,7 +51,9 @@ export default async ({ expressApp }) => {
       otpModel,
       dineTableModel,
       foodModel,
-      restaurantModel
+      restaurantModel,
+      orderModel,
+      orderItemModel
     ],
   });
   Logger.info('Dependency Injector loaded');

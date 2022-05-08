@@ -37,7 +37,6 @@ export default class ManagerService {
         // foodRecord.inMenu = foodInput.inMenu?foodInput.inMenu:foodRecord.inMenu
         foodRecord.inMenu = foodInput.inMenu;
         foodRecord.image = foodInput.image?foodInput.image:foodRecord.image
-        console.log(foodRecord)
         await foodRecord.save()
         return {foodDetail:foodRecord}
       }catch{
