@@ -76,4 +76,21 @@ export default (app:Router)=>{
             return res.json({status:false, message:"Order creation failed"});
         }
     })
+    route.patch('/update_order_status',
+    middlewares.attachTokens,
+    middlewares.resAuth,
+    middlewares.dineAuth,
+    middlewares.otpAuth,
+    async (req:Request, res:Response, next:NextFunction)=>{
+        const logger:Logger = Container.get('logger');
+        logger.debug('calling update order status endpoint by customer with body: %o', req.body);
+        try{
+        const customerServiceInstance = Container.get(CustomerService);
+        await customerServiceInstance.updateOrder(req.body.order_item_id, req.body.status);
+        return res.status(201).json({status:true, message:"updated successfully"});
+        }
+        catch(e){
+            return res.json({status:false, message:"update failed"});
+        }
+    })
 }

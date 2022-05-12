@@ -465,3 +465,116 @@ response:
 			"status": false,
 			"message": "order created failed"
 		}
+25. customer/get_orders- ereturns order items with status!=Completed
+GET request
+needs manager access token
+{
+    "orders": [
+        {
+            "food_id": "625b0be653b5f64920702c90",
+            "food_name": "biriyani",
+            "dine_id": "625fd33e60ffcf02f07ebc5d",
+            "dine_name": "L1",
+            "order_id": "fd946ea7-3b3b-4155-97a9-549434b83f56",
+            "quantity": "4",
+            "comment": "FOOD_CUSTOMIZATION",
+            "order_item_status": "Ordered"
+        },
+        {
+            "food_id": "625b0bd653b5f64920702c8e",
+            "food_name": "vada",
+            "dine_id": "625fd33e60ffcf02f07ebc5d",
+            "dine_name": "L1",
+            "order_id": "fd946ea7-3b3b-4155-97a9-549434b83f56",
+            "quantity": "3",
+            "comment": "FOOD_CUSTOMIZATION",
+            "order_item_status": "Ordered"
+        },
+        {
+            "food_id": "625b0be653b5f64920702c90",
+            "food_name": "biriyani",
+            "dine_id": "625fd33e60ffcf02f07ebc5d",
+            "dine_name": "L1",
+            "order_id": "fd946ea7-3b3b-4155-97a9-549434b83f56",
+            "quantity": "4",
+            "comment": "FOOD_CUSTOMIZATION",
+            "order_item_status": "Ordered"
+        },
+        {
+            "food_id": "6268f8d9c007bc09bc6ad0a4",
+            "food_name": "Biriyani",
+            "dine_id": "625fd33e60ffcf02f07ebc5d",
+            "dine_name": "L1",
+            "order_id": "052b3b0a-1119-4e3f-a703-558fd4b400f5",
+            "quantity": "4",
+            "comment": "less spicy",
+            "order_item_status": "Ordered"
+        },
+        {
+            "food_id": "6268f3fec007bc09bc6ad08b",
+            "food_name": "Roast",
+            "dine_id": "625fd33e60ffcf02f07ebc5d",
+            "dine_name": "L1",
+            "order_id": "052b3b0a-1119-4e3f-a703-558fd4b400f5",
+            "quantity": "2",
+            "comment": "No comments",
+            "order_item_status": "Ordered"
+        },
+        {
+            "food_id": "6268f8d9c007bc09bc6ad0a4",
+            "food_name": "Biriyani",
+            "dine_id": "625fd33e60ffcf02f07ebc5d",
+            "dine_name": "L1",
+            "order_id": "b39c63ba-f2d2-401b-a23c-b51b17392e4b",
+            "quantity": "4",
+            "comment": "less spicy",
+            "order_item_status": "Ordered"
+        },
+        {
+            "food_id": "6268f3fec007bc09bc6ad08b",
+            "food_name": "Roast",
+            "dine_id": "625fd33e60ffcf02f07ebc5d",
+            "dine_name": "L1",
+            "order_id": "b39c63ba-f2d2-401b-a23c-b51b17392e4b",
+            "quantity": "2",
+            "comment": "No comments",
+            "order_item_status": "Ordered"
+        },
+        {
+            "food_id": "6268f3fec007bc09bc6ad08b",
+            "food_name": "Roast",
+            "dine_id": "625fd33e60ffcf02f07ebc5d",
+            "dine_name": "L1",
+            "order_id": "5df0d1cc-9cd2-4c1c-a0da-04043b74f735",
+            "quantity": "1",
+            "comment": "No comments",
+            "order_item_status": "Ordered"
+        },
+        {
+            "food_id": "6268f4f0c007bc09bc6ad08e",
+            "food_name": "Rava Roast",
+            "dine_id": "625fd33e60ffcf02f07ebc5d",
+            "dine_name": "L1",
+            "order_id": "14529123-a582-4438-8cb8-a0be2452e06c",
+            "quantity": "1",
+            "comment": "less roasted",
+            "order_item_status": "Ordered"
+        }
+    ]
+}
+
+26.  customer/update_food_status 
+PATCH REQUEST 
+accessible only to managers
+
+request body:
+	{
+		"order_id": "UNIQUE_TRANSACTION_ID",
+		"transaction_item_id": "TRANSACTION_ITEM_ID",
+		"status": "ORDERED" || "BEING PREPARED" || "HAPPY_MEAL"
+	}
+	response:
+	{
+		"status": true||false,
+		"message" "updated successfully" || "update fail"
+	}

@@ -1,6 +1,7 @@
 import { Service, Inject } from 'typedi';
 import { IFoodDTO, IFood } from '@/interfaces/IFood';
 import { EventDispatcher, EventDispatcherInterface } from '@/decorators/eventDispatcher';
+import { IOrderItems } from '@/interfaces/IOrderItems';
 
 @Service()
 export default class ManagerService {
@@ -8,6 +9,10 @@ export default class ManagerService {
     @Inject('foodModel') private foodModel: Models.FoodModel,
     @Inject('logger') private logger,
     @EventDispatcher() private eventDispatcher: EventDispatcherInterface,
+    @Inject('orderItemModel') private orderItemModel: Models.OrderItemModel,
+    @Inject('dineTableModel') private dineTableModel: Models.DineTableModel,
+    @Inject('orderModel') private orderModel: Models.OrderModel,
+
   ) {
   }
   public async createFood(foodInputDTO: IFoodDTO): Promise<{ status: Boolean}> {
@@ -81,5 +86,35 @@ export default class ManagerService {
       throw e;
     }
   }
-
+  public async getOrders(): Promise<{orderDetails:IOrderItems[]}>{
+    try{
+      const orderRecord = await this.orderItemModel.find({order_item_status:{$ne:"Completed"}});
+      if(!orderRecord){
+        throw new Error("Cannot get order items")
+      }
+      let newOrderRecord =[] as IOrderItems[];
+      for(let i=0;i<orderRecord.length;i++){
+        let curRecord = {} as IOrderItems;
+        const foodRecord = await this.foodModel.findById(orderRecord[i].food_id);
+        const curOrderRecord = await this.orderModel.find({order_id:orderRecord[i].order_id});
+        const dineRecord = await this.dineTableModel.findById(curOrderRecord[0].dine_id)
+        curRecord.order_item_id = await orderRecord[0]._id;
+        curRecord.food_id = await orderRecord[i].food_id;
+        curRecord.food_name =await foodRecord.name;
+        curRecord.dine_id =await curOrderRecord[0].dine_id;
+        curRecord.dine_name =await dineRecord.name;
+        curRecord.order_id =await orderRecord[i].order_id;
+        curRecord.quantity =await orderRecord[i].quantity;
+        curRecord.comment =await orderRecord[i].comment;
+        curRecord.order_item_status =await orderRecord[i].order_item_status;
+        newOrderRecord[i]=curRecord;
+      }
+      this.logger.silly("%o", newOrderRecord[0])
+      return{orderDetails:newOrderRecord}
+    }
+    catch(e){
+      this.logger.error(e);
+      throw e;
+    }
+  }
 }

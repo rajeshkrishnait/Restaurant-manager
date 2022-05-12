@@ -85,5 +85,23 @@ export default (app: Router) => {
         return next(e);
         }
     });
-  
+    route.get('/get_orders',
+    middlewares.isAuth,
+    async(req:Request, res:Response, next:NextFunction) =>{
+    const logger:Logger = Container.get('logger');
+    logger.debug('Calling get orders endpoint by manager with body: %o', req.body );
+    try {
+        const isValidRole = await middlewares.checkRole(req, "Manager", next)
+        if(isValidRole){
+            const ManagerServiceInstance = Container.get(ManagerService);
+            const { orderDetails } =await ManagerServiceInstance.getOrders();
+            return res.status(201).json({ "orders":orderDetails});
+        }else{
+            return res.json({status:false,message:"Not Authorized"});
+        }
+        } catch (e) {
+        logger.error('error: %o', e);
+        return res.json({status:false, message:"failed to get orders"});
+        }
+    });
 }

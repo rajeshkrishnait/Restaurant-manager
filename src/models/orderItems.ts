@@ -7,7 +7,10 @@ const orderItems = new mongoose.Schema(
     dine_id:String,
     order_id:String,
     quantity:String,
-    comment:String,
+    comment:{
+      type:String,
+      default:"No comments"
+    },
     order_item_status:{
         type:String,
         default:"Ordered"
