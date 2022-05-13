@@ -563,7 +563,7 @@ needs manager access token
     ]
 }
 
-26.  customer/update_food_status 
+26.  manager/update_order_status 
 PATCH REQUEST 
 accessible only to managers
 

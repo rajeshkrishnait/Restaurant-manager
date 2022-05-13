@@ -117,4 +117,18 @@ export default class ManagerService {
       throw e;
     }
   }
+  public async updateOrder(order_item_id:String, status:String){
+    try{
+        const orderRecord = await this.orderItemModel.findById(order_item_id);
+        this.logger.debug(order_item_id)
+        if(!orderRecord){
+            throw new Error("error:record not found");
+        }
+        orderRecord.order_item_status = status;
+        await orderRecord.save();
+    }catch(e){
+        this.logger.error(e);
+        throw e
+    }
+}
 }

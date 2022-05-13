@@ -104,4 +104,18 @@ export default (app: Router) => {
         return res.json({status:false, message:"failed to get orders"});
         }
     });
+    route.patch('/update_order_status',
+    middlewares.isAuth,
+    async (req:Request, res:Response, next:NextFunction)=>{
+        const logger:Logger = Container.get('logger');
+        logger.debug('calling update order status endpoint by manager with body: %o', req.body);
+        try{
+        const ManagerServiceInstance = Container.get(ManagerService);
+        await ManagerServiceInstance.updateOrder(req.body.order_item_id, req.body.status);
+        return res.status(201).json({status:true, message:"updated successfully"});
+        }
+        catch(e){
+            return res.json({status:false, message:"update failed"});
+        }
+    })
 }
