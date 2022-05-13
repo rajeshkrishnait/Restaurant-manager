@@ -570,7 +570,7 @@ accessible only to managers
 request body:
 	{
 		"order_id": "UNIQUE_TRANSACTION_ID",
-		"transaction_item_id": "TRANSACTION_ITEM_ID",
+		"order_item_id": "TRANSACTION_ITEM_ID",
 		"status": "ORDERED" || "BEING PREPARED" || "HAPPY_MEAL"
 	}
 	response:

@@ -88,7 +88,7 @@ export default class ManagerService {
   }
   public async getOrders(): Promise<{orderDetails:IOrderItems[]}>{
     try{
-      const orderRecord = await this.orderItemModel.find({order_item_status:{$ne:"Completed"}});
+      const orderRecord = await this.orderItemModel.find({order_item_status:{$ne:"HAPPY MEAL"}});
       if(!orderRecord){
         throw new Error("Cannot get order items")
       }
@@ -98,7 +98,7 @@ export default class ManagerService {
         const foodRecord = await this.foodModel.findById(orderRecord[i].food_id);
         const curOrderRecord = await this.orderModel.find({order_id:orderRecord[i].order_id});
         const dineRecord = await this.dineTableModel.findById(curOrderRecord[0].dine_id)
-        curRecord.order_item_id = await orderRecord[0]._id;
+        curRecord.order_item_id = await orderRecord[i]._id;
         curRecord.food_id = await orderRecord[i].food_id;
         curRecord.food_name =await foodRecord.name;
         curRecord.dine_id =await curOrderRecord[0].dine_id;
@@ -130,5 +130,5 @@ export default class ManagerService {
         this.logger.error(e);
         throw e
     }
-}
+  }
 }
