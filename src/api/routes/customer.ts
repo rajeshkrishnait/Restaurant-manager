@@ -86,8 +86,9 @@ export default (app:Router)=>{
     logger.debug('Calling get orders endpoint by customer with body: %o', req.body );
     try{
         const customerServiceInstance = Container.get(CustomerService);
-        const { orderDetails } =await customerServiceInstance.getOrders();
-        return res.status(201).json({ "orders":orderDetails});
+        const customerPayload = await middlewares.getPayload(req.otpToken)
+        const { orderDetails } =await customerServiceInstance.getOrders(customerPayload.email);
+        return res.status(201).json({status:true, "orders":orderDetails});
         } catch (e) {
         logger.error('error: %o', e);
         return res.json({status:false, message:"failed to get orders"});

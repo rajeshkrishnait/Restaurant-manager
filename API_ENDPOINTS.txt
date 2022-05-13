@@ -578,3 +578,64 @@ request body:
 		"status": true||false,
 		"message" "updated successfully" || "update fail"
 	}
+
+27. customer/get_orders - gets customer's current orders.
+GET method
+needs dine, restaurant, otp tokens
+request{
+
+}
+response:
+{
+    "status": true,
+    "orders": [
+        [
+            {
+                "order_item_id": "627e4e1fe17f0721c8d3c96d",
+                "food_id": "625b0bd653b5f64920702c8e",
+                "food_name": "vada",
+                "dine_id": "625fd33e60ffcf02f07ebc5d",
+                "dine_name": "L1",
+                "order_id": "211ba911-f604-44d7-acd6-9f935c58a98e",
+                "quantity": "3",
+                "comment": "FOOD_CUSTOMIZATION",
+                "order_item_status": "Ordered"
+            },
+            {
+                "order_item_id": "627e4e1fe17f0721c8d3c96f",
+                "food_id": "625b0be653b5f64920702c90",
+                "food_name": "biriyani",
+                "dine_id": "625fd33e60ffcf02f07ebc5d",
+                "dine_name": "L1",
+                "order_id": "211ba911-f604-44d7-acd6-9f935c58a98e",
+                "quantity": "4",
+                "comment": "FOOD_CUSTOMIZATION",
+                "order_item_status": "Ordered"
+            }
+        ],
+        [
+            {
+                "order_item_id": "627e51398115d845885c6559",
+                "food_id": "625b0bd653b5f64920702c8e",
+                "food_name": "vada",
+                "dine_id": "625fd33e60ffcf02f07ebc5d",
+                "dine_name": "L1",
+                "order_id": "60fca907-b628-4f0b-a61b-151a33e85f3a",
+                "quantity": "5",
+                "comment": "FOOD_CUSTOMIZATION",
+                "order_item_status": "Ordered"
+            },
+            {
+                "order_item_id": "627e513a8115d845885c655b",
+                "food_id": "625b0be653b5f64920702c90",
+                "food_name": "biriyani",
+                "dine_id": "625fd33e60ffcf02f07ebc5d",
+                "dine_name": "L1",
+                "order_id": "60fca907-b628-4f0b-a61b-151a33e85f3a",
+                "quantity": "5",
+                "comment": "FOOD_CUSTOMIZATION",
+                "order_item_status": "Ordered"
+            }
+        ]
+    ]
+}

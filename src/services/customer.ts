@@ -96,31 +96,41 @@ export default class CustomerService{
         throw e;
       }
     }
-    public async getOrders(): Promise<{orderDetails:IOrderItems[]}>{
+    public async getOrders(email:String): Promise<{orderDetails:IOrderItems[][]}>{
       try{
-        const orderRecord = await this.orderItemModel.find();
-        if(!orderRecord){
-          throw new Error("Cannot get order items")
+        const ordersRecord = await this.orderModel.find({email_id:email});
+        this.logger.debug(ordersRecord)
+        if(ordersRecord.length === 0){
+          throw new Error("customer has no orders");
         }
-        let newOrderRecord =[] as IOrderItems[];
-        for(let i=0;i<orderRecord.length;i++){
-          let curRecord = {} as IOrderItems;
-          const foodRecord = await this.foodModel.findById(orderRecord[i].food_id);
-          const curOrderRecord = await this.orderModel.find({order_id:orderRecord[i].order_id});
-          const dineRecord = await this.dineTableModel.findById(curOrderRecord[0].dine_id)
-          curRecord.order_item_id = await orderRecord[i]._id;
-          curRecord.food_id = await orderRecord[i].food_id;
-          curRecord.food_name =await foodRecord.name;
-          curRecord.dine_id =await curOrderRecord[0].dine_id;
-          curRecord.dine_name =await dineRecord.name;
-          curRecord.order_id =await orderRecord[i].order_id;
-          curRecord.quantity =await orderRecord[i].quantity;
-          curRecord.comment =await orderRecord[i].comment;
-          curRecord.order_item_status =await orderRecord[i].order_item_status;
-          newOrderRecord[i]=curRecord;
+        let totalOrderRecords = [] as IOrderItems[][];
+        for(let j=0;j<ordersRecord.length;j++){
+            const order_id = ordersRecord[j].order_id;
+            const orderRecord = await this.orderItemModel.find({order_id:order_id});
+            this.logger.debug(orderRecord)
+            if(orderRecord.length === 0){
+              throw new Error("Cannot get order items")
+            }
+            let newOrderRecord =[] as IOrderItems[];
+            for(let i=0;i<orderRecord.length;i++){
+              let curRecord = {} as IOrderItems;
+              const foodRecord = await this.foodModel.findById(orderRecord[i].food_id);
+              const curOrderRecord = await this.orderModel.find({order_id:orderRecord[i].order_id});
+              const dineRecord = await this.dineTableModel.findById(curOrderRecord[0].dine_id)
+              curRecord.order_item_id = await orderRecord[i]._id;
+              curRecord.food_id = await orderRecord[i].food_id;
+              curRecord.food_name =await foodRecord.name;
+              curRecord.dine_id =await curOrderRecord[0].dine_id;
+              curRecord.dine_name =await dineRecord.name;
+              curRecord.order_id =await orderRecord[i].order_id;
+              curRecord.quantity =await orderRecord[i].quantity;
+              curRecord.comment =await orderRecord[i].comment;
+              curRecord.order_item_status =await orderRecord[i].order_item_status;
+              newOrderRecord[i]=curRecord;
+            }
+            totalOrderRecords[j] = newOrderRecord
         }
-        this.logger.silly("%o", newOrderRecord[0])
-        return{orderDetails:newOrderRecord}
+        return{orderDetails:totalOrderRecords}
       }
       catch(e){
         this.logger.error(e);
