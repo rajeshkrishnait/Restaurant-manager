@@ -60,6 +60,20 @@ export default class CustomerService{
             throw e
         }
     }
+    public async checkout(order_id:String):Promise<{}>{
+      try{
+          const orderRecord = await this.orderModel.find({order_id:order_id});
+          if(orderRecord.length === 0){
+              throw new Error("error:record not found");
+          }
+          orderRecord[0].order_status = false;
+          orderRecord[0].save();
+          return 
+      }catch(e){
+          this.logger.error(e);
+          throw e
+      }
+  }
     public async makeOrder(order_id:String, orderCartItem:IOrderCartItems[], dine_id:String, email:String):Promise<{orderDetails:String}>{
       try{
         if(order_id){

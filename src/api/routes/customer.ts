@@ -94,4 +94,22 @@ export default (app:Router)=>{
         return res.json({status:false, message:"failed to get orders"});
         }
     });
+    route.post('/checkout/:order_id',
+    middlewares.attachTokens,
+    middlewares.resAuth,
+    middlewares.dineAuth,
+    middlewares.otpAuth,
+    async(req:Request, res:Response, next:NextFunction) =>{
+    const logger:Logger = Container.get('logger');
+    logger.debug('Calling checkout endpoint by customer with body: %o', req.body );
+    try{
+        const customerServiceInstance = Container.get(CustomerService);
+        await customerServiceInstance.checkout(req.params.order_id);
+        return res.status(201).json({status:true});
+        } catch (e) {
+        logger.error('error: %o', e);
+        return res.json({status:false, message:"failed to checkout"});
+        }
+    }
+    )
 }

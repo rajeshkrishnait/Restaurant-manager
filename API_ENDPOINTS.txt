@@ -639,3 +639,13 @@ response:
         ]
     ]
 }
+
+28. /customer/checkout/:order_id - based on order_id 
+Post request
+needs all tokens
+request{
+
+}
+reponse{
+    status:true;
+}
