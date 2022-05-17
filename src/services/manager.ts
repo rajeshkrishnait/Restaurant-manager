@@ -117,7 +117,9 @@ export default class ManagerService {
       throw e;
     }
   }
-  public async updateOrder(order_item_id:String, status:String){
+  
+
+  public async updateOrder(order_item_id:String, status:String): Promise<{orderItemDetails:IOrderItems}>{
     try{
         const orderRecord = await this.orderItemModel.findById(order_item_id);
         this.logger.debug(order_item_id)
@@ -126,6 +128,7 @@ export default class ManagerService {
         }
         orderRecord.order_item_status = status;
         await orderRecord.save();
+        return ({orderItemDetails:orderRecord})
     }catch(e){
         this.logger.error(e);
         throw e

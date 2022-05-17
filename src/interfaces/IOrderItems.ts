@@ -4,7 +4,7 @@ export interface IOrderItems{
     food_name:String;
     dine_id:String;
     dine_name:String;
-    order_id:Number;
+    order_id:String;
     quantity:String;
     comment:Boolean;
     order_item_id;

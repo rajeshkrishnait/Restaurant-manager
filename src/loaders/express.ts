@@ -53,4 +53,6 @@ export default ({ app }: { app: express.Application }) => {
       },
     });
   });
+   app    = require('http').createServer(app);
+
 };

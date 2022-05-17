@@ -20,7 +20,7 @@ export default {
   dineSecret: process.env.DINE_SECRET,
   customerSecret: process.env.CUSTOMER_SECRET,
   jwtAlgorithm: process.env.JWT_ALGO,
-
+  restaurantName: "Namma Sappadu",
   
   logs: {
     level: process.env.LOG_LEVEL || 'silly',

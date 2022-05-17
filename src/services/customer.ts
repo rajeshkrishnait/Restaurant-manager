@@ -110,15 +110,10 @@ export default class CustomerService{
         throw e;
       }
     }
-    public async getOrders(email:String): Promise<{orderDetails:IOrderItems[]}>{
+    public async getOrders(order_id:String): Promise<{orderDetails:IOrderItems[]}>{
       try{
-        const ordersRecord = await this.orderModel.find({email_id:email, order_status:true});
-        if(ordersRecord.length === 0){
-          throw new Error("customer has no orders");
-        }
-        let newOrderRecord =[] as IOrderItems[];
-        for(let j=0;j<ordersRecord.length;j++){
-            const order_id = ordersRecord[j].order_id;
+       
+            let newOrderRecord =[] as IOrderItems[];
             const orderRecord = await this.orderItemModel.find({order_id:order_id});
             if(orderRecord.length === 0){
               throw new Error("Cannot get order items")
@@ -126,7 +121,7 @@ export default class CustomerService{
             for(let i=0;i<orderRecord.length;i++){
               let curRecord = {} as IOrderItems;
               const foodRecord = await this.foodModel.findById(orderRecord[i].food_id);
-              const curOrderRecord = await this.orderModel.find({order_id:orderRecord[i].order_id});
+              const curOrderRecord = await this.orderModel.find({order_id:order_id});
               const dineRecord = await this.dineTableModel.findById(curOrderRecord[0].dine_id)
               curRecord.order_item_id =  orderRecord[i]._id;
               curRecord.food_id =  orderRecord[i].food_id;
@@ -139,7 +134,6 @@ export default class CustomerService{
               curRecord.order_item_status = orderRecord[i].order_item_status;
               newOrderRecord[i]=curRecord;
             }
-        }
         return{orderDetails:newOrderRecord}
       }
       catch(e){
@@ -179,6 +173,7 @@ export default class CustomerService{
         let total = 0;
         for(var i = 0; i < orderCartItem.length; i++){
           const curFoodRecord = await this.foodModel.findById(orderCartItem[i].food_id)
+
           total = total + ( curFoodRecord.price *  orderCartItem[i].quantity);
         }
         return total;

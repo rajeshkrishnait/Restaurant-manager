@@ -6,7 +6,6 @@ import dineTable from './routes/dineTable';
 import admin from './routes/admin';
 import manager from './routes/manager';
 import customer from './routes/customer';
-
 import customerOtp from './routes/customerOtp';
 import recommendation from './routes/recommendation';
 // guaranteed to get dependencies

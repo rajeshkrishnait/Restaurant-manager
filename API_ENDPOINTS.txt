@@ -649,3 +649,108 @@ request{
 reponse{
     status:true;
 }
+
+29. http://localhost:3000/api/recommendation/recommend_svd_api - recommends food based on the food data in input.
+needs access tokens
+accessible only to customers
+POST method
+request:
+{
+    "userID": "rajesh@gmail.com",
+    "Food_Name": [
+        "tricolour salad",
+        "banana walnut smoothie",
+        "andhra pan fried pomfret"
+    ]
+}
+response{
+    "recommendation": {
+        "Food_ID": {
+            "37": 40,
+            "47": 51,
+            "66": 70,
+            "71": 75,
+            "96": 100,
+            "122": 126,
+            "128": 132,
+            "183": 187,
+            "254": 258,
+            "255": 259
+        },
+        "Name": {
+            "37": "corn and raw mango salad",
+            "47": "christmas chocolate fudge cookies",
+            "66": "shepherds salad (tamatar-kheera salaad)",
+            "71": "detox haldi tea",
+            "96": "spicy chicken curry",
+            "122": "andhra crab meat masala",
+            "128": "coffee marinated mutton chops",
+            "183": "tricolour pizza",
+            "254": "lamb korma",
+            "255": "ragi coconut ladoo (laddu)"
+        },
+        "C_Type": {
+            "37": "Healthy Food",
+            "47": "Dessert",
+            "66": "Healthy Food",
+            "71": "Beverage",
+            "96": "Indian",
+            "122": "Indian",
+            "128": "Thai",
+            "183": "Italian",
+            "254": "Indian",
+            "255": "Dessert"
+        },
+        "Veg_Non": {
+            "37": "veg",
+            "47": "veg",
+            "66": "veg",
+            "71": "veg",
+            "96": "non-veg",
+            "122": "non-veg",
+            "128": "non-veg",
+            "183": "veg",
+            "254": "non-veg",
+            "255": "veg"
+        },
+        "Describe": {
+            "37": "Corn kernels, onions, green onions, paprika, raw mango (pieces), celery stock (pieces), cherry tomatoes, pineapple (pieces), pasarley, green coriander, badge leaves, black olive, lemon juice, olive Oil, black salt, white pepper powder, taco shell",
+            "47": "unsalted butter, brown sugar, chocolate, chocolate chips, eggs, flour, cocoa powder, baking powder",
+            "66": "1 cucumber peeled and chopped, onion, tomato, green chillies, garlic buds, pasarley, olive oil, lemon juice, salt and pepper",
+            "71": "haldi, ginger, black pepper, honey, water",
+            "96": "oil, ghee, onion paste, garlic paste, ginger paste, turmeric powder, salt, tomato puree, coriander powder, red chilli powder, cumin powder, garam masala, chicken leg pieces, coriander leaves, water",
+            "122": "processed crab meat, refined oil, curry leaves, garlic, green chilli, onion, ginger-garlic paste, coriander, coriander powder, cumin powder, turmeric powder, garam masala powder, kashmiri chilli powder, salt, lemon, chop masala, tomato",
+            "128": "mutton chops, espresso, honey, balsamic vinegar, rosemary, pink peppercorns (crushed), olive oil, salt",
+            "183": "pizza base , pizza sauce, mozzarella cheese, black olive, green capsicum, carrots, olive oil",
+            "254": "onions, almond paste, ghee, cinnamon sticks, green cardamom, cloves, mace, bay leaves, garlic paste, ginger paste, lamb, salt, rose water (infused with 4-5 strands of saffron), yellow chilli powder, yogurt, yellow chilli powder, black pepper powder, coriander seed powder, cumin powder, red chilli powder, turmeric powder, clove powder, green cardamom powder, rose petal powder, nutmeg powder, black cardamom powder, fennel powder, cinnamon powder, mace powder, onions, cream/malai",
+            "255": "finger millet flour (ragi), jaggery, peanuts, coconut, salt"
+        }
+    }
+}
+
+
+Websocket:
+Url for all websocket requestd: ws://localhost:3000/
+
+1.Customer emits an event - "createOrderRoom" with body containing: 
+{
+    "order_id":"orderID",
+}
+
+gets orders based on the the order_id and creates a room with the Ordered_id and subscribes to it.
+
+2.Customer listens for event - "showOrder" which returns the food_items.
+
+data that is returned:
+{
+        status:true,
+        orderItemDetails: "orderItemDetails"
+}
+
+3. manager emits event - "updateOrder" updates order based on the orderItemId mentioned.
+{
+    "order_id":"OrderId"
+    "status":"happy meal",
+    "order_item_id":"orderItemId"
+}
+After updation emits the updated order details to the "showOrder" listener on customer side. Only to the customer subscribed to that order_id.
