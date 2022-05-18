@@ -41,11 +41,10 @@ export default class RecommendationService {
         const foodNames = rawRecommendations["Name"];
         var values = []
         
-        this.logger.silly("%o",rawRecommendations["Describe"]['37'])
         let recommendationDetails =[] as IRecommendation[];
         var k=0;
         for(var i in foodNames){
-            const curFoodRecord = await this.foodModel.find({name:foodNames[i]});
+            const curFoodRecord = await this.foodModel.find({name:foodNames[i], inMenu:true});
             if(!curFoodRecord){
                 continue;
             }
