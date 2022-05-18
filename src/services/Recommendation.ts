@@ -44,7 +44,7 @@ export default class RecommendationService {
         let recommendationDetails =[] as IRecommendation[];
         var k=0;
         for(var i in foodNames){
-            const curFoodRecord = await this.foodModel.find({name:foodNames[i], inMenu:true});
+            const curFoodRecord = await this.foodModel.find({name:foodNames[i]});
             if(!curFoodRecord){
                 continue;
             }
