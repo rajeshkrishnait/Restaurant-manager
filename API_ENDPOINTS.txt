@@ -650,18 +650,13 @@ reponse{
     status:true;
 }
 
-29. http://localhost:3000/api/recommendation/recommend_svd_api - recommends food based on the food data in input.
+29. http://localhost:3000/api/recommendation/recommend_svd_api/:order_id - recommends food based on the food data in input.
 needs access tokens
 accessible only to customers
-POST method
+get method
 request:
 {
-    "userID": "rajesh@gmail.com",
-    "Food_Name": [
-        "tricolour salad",
-        "banana walnut smoothie",
-        "andhra pan fried pomfret"
-    ]
+   
 }
 response{
     "recommendationDetails": [

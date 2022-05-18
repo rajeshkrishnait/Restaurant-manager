@@ -1,6 +1,6 @@
 
 export interface IOrder{
-    order_id
+    order_id:String;
     email_id:String;
     dine_id:String;
     total:Number;

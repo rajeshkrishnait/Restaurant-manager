@@ -76,7 +76,7 @@ export default (app:Router)=>{
             return res.json({status:false, message:"Order creation failed"});
         }
     })
-    route.get('/get_orders',
+    route.get('/get_orders/:order_id',
     middlewares.attachTokens,
     middlewares.resAuth,
     middlewares.dineAuth,
@@ -87,7 +87,7 @@ export default (app:Router)=>{
     try{
         const customerServiceInstance = Container.get(CustomerService);
         const customerPayload = await middlewares.getPayload(req.otpToken)
-        const { orderDetails } =await customerServiceInstance.getOrders(customerPayload.email);
+        const { orderDetails } =await customerServiceInstance.getOrders(req.params.order_id);
         return res.status(201).json({status:true, "orders":orderDetails});
         } catch (e) {
         logger.error('error: %o', e);
