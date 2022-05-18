@@ -97,6 +97,7 @@ export default class ManagerService {
         let curRecord = {} as IOrderItems;
         const foodRecord = await this.foodModel.findById(orderRecord[i].food_id);
         const curOrderRecord = await this.orderModel.find({order_id:orderRecord[i].order_id});
+        console.log(curOrderRecord)
         const dineRecord = await this.dineTableModel.findById(curOrderRecord[0].dine_id)
         curRecord.order_item_id = await orderRecord[i]._id;
         curRecord.food_id = await orderRecord[i].food_id;

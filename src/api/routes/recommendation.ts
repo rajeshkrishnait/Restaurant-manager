@@ -2,7 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import middlewares from '../middlewares';
 import { Logger } from 'winston';
 import { Container } from 'typedi';
-import AdminService from '@/services/admin';
+import RecommendationService from '@/services/Recommendation';
 import axios from 'axios';
 const route = Router();
 
@@ -23,16 +23,18 @@ export default (app: Router) => {
         return next(e);
         }
     });
-    route.post('/recommend_svd_api',
-    middlewares.attachTokens,
-    middlewares.resAuth,
-    middlewares.dineAuth,
+    route.get('/recommend_svd_api',
+    // middlewares.attachTokens,
+    // middlewares.resAuth,
+    // middlewares.dineAuth,
     async(req:Request, res:Response, next:NextFunction) =>{
     const logger:Logger = Container.get('logger');
     logger.debug('Calling get recommendation endpoint by user with body: %o', req.body );
     try {
-        const recommendations = await axios.post('http://localhost:5000/recommend_svd_api', {data:req.body});
-        return res.json({recommendation:recommendations.data}) // { hello: 'world' }
+        const rawRecommendations = await axios.post('http://localhost:5000/recommend_svd_api', {data:req.body});
+        const RecommendationInstance = Container.get(RecommendationService);
+        const recommendationDetails = await RecommendationInstance.getFoodRecommendation(rawRecommendations.data)
+        return res.json({recommendationDetails:recommendationDetails.recommendationDetails}) // { hello: 'world' }
         }
         catch (e) {
         logger.error('error: %o', e);
